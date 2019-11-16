@@ -2,7 +2,6 @@
 
 #include <random>
 
-
 Game::~Game()
 {
 	//If window isn't equal to nullptr
@@ -85,6 +84,28 @@ void Game::Update()
 	Timer::Update();
 	//Update the backend
 	BackEnd::Update(m_register);
+
+	RainbowRunner* scene = (RainbowRunner*)m_activeScene;
+
+	auto entity = scene->GetBackground();
+	auto entity2 = scene->GetBackground2();
+	vec3 position = m_register->get<Transform>(entity).GetPosition();
+	vec3 position2 = m_register->get<Transform>(entity2).GetPosition();
+
+	float speed = 50.f;
+
+
+	if (position.x + 384 <= 0)
+	{
+		position.x = position2.x + 384;
+	}
+	if (position2.x + 384 <= 0)
+	{
+		position2.x = position.x + 384;
+	}
+
+	m_register->get<Transform>(entity).SetPositionX(position.x - (speed * Timer::deltaTime));
+	m_register->get<Transform>(entity2).SetPositionX(position2.x - (speed * Timer::deltaTime));
 }
 
 void Game::GUI()
