@@ -135,6 +135,9 @@
     <ClCompile Include="include\imgui\imgui_widgets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RainbowRunner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationController.h">
@@ -264,6 +267,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\imgui\imstb_truetype.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RainbowRunner.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
