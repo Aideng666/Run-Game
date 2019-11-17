@@ -191,7 +191,7 @@ void Game::KeyboardDown()
 		m_register = m_scenes[1]->GetScene();
 		m_activeScene = m_scenes[1];
 	}
-	//Swtiches back IF active scene is game screen to Main Menu [Delete after! :)]
+	//Swtiches back IF active scene is game screen to Main Menu
 	else if (m_activeScene == m_scenes[1] && Input::GetKeyDown(Key::Space))
 	{
 		SceneEditor::ResetEditor();
