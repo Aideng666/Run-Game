@@ -27,17 +27,30 @@ Game::~Game()
 
 void Game::InitGame()
 {	
+	//m_name = "Main Menu";
+	//m_clearColor = vec4(0.15f, 0.33f, 0.58f, 1.f);
+
 	//Create different scenes
-	std::string MainMenuName = "Main Menu";
-	vec4 mainMenuClear = vec4(0.15f, 0.33f, 0.58f, 1.f);
-	std::string GameName = "Rainbow Runner";
-	vec4 gameClear = vec4(0.15f, 0.33f, 0.58f, 1.f);
+	//std::string MainMenuName = "Main Menu";
+	//vec4 mainMenuClear = vec4(0.15f, 0.33f, 0.58f, 1.f);
+	//std::string GameName = "Rainbow Runner";
+	//vec4 gameClear = vec4(0.15f, 0.33f, 0.58f, 1.f);
 	//std::string RulesName = "Rules";
 	//vec4 rulesClear = vec4(0.15f, 0.33f, 0.58f, 1.f);
 
+	std::string earthName = "Earth";
+	vec4 earthClear = vec4(0.15f, 0.33f, 0.58f, 1.f);
+	std::string jupiterName = "Jupiter";
+	vec4 jupiterClear = vec4(0.15f, 0.33f, 0.58f, 1.f);
+	std::string spaceName = "Space";
+	vec4 spaceClear = vec4(0.15f, 0.33f, 0.58f, 1.f);
+
+	m_name = earthName;
+	m_clearColor = earthClear;
+
 	//Initialize the current scene (starting screen)
-	m_name = MainMenuName;
-	m_clearColor = mainMenuClear;
+	//m_name = MainMenuName;
+	//m_clearColor = mainMenuClear;
 
 	//Initializes the backend
 	BackEnd::InitBackEnd(m_name);
@@ -45,15 +58,25 @@ void Game::InitGame()
 	//Grabs the initialized window
 	m_window = BackEnd::GetWindow();
 
+	//m_scenes.push_back(new RainbowRunner("Rainbow Runner"));
+	//m_activeScene = m_scenes[0];
+
+	//m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+
+	//m_register = m_activeScene->GetScene();
 	//Load the different scenes into a list
-	m_scenes.push_back(new RainbowRunner(MainMenuName));
+	//m_scenes.push_back(new RainbowRunner(MainMenuName));
 	//m_scenes.push_back(new RulesScene(RulesName));
-	m_scenes.push_back(new RainbowRunnerGame(GameName));
+	//m_scenes.push_back(new RainbowRunnerGame(GameName));
+
+	m_scenes.push_back(new RainbowRunner(earthName));
+	m_scenes.push_back(new RulesScene(jupiterName));
+	m_scenes.push_back(new RainbowRunnerGame(spaceName));
 
 	//Access the starting scene
 	m_scenes[0]->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 	m_register = m_scenes[0]->GetScene();
-	m_activeScene = m_scenes[0];
+	m_activeScene = m_scenes[0];	
 }
 
 bool Game::Run()
@@ -97,8 +120,9 @@ void Game::Update()
 	//Update the backend
 	BackEnd::Update(m_register);
 
+#pragma region Scrolling Background
 	//Scrolls the background for the game IF the active scene is the game scene
-	if (m_activeScene == m_scenes[1])
+	if (m_activeScene == m_scenes[2])
 	{
 		RainbowRunnerGame* scene = (RainbowRunnerGame*)m_activeScene;
 
@@ -123,6 +147,8 @@ void Game::Update()
 		m_register->get<Transform>(entity).SetPositionX(position.x - (speed * Timer::deltaTime));
 		m_register->get<Transform>(entity2).SetPositionX(position2.x - (speed * Timer::deltaTime));
 	}
+#pragma endregion
+
 }
 
 void Game::GUI()
@@ -183,8 +209,8 @@ void Game::KeyboardDown()
 
 		m_activeScene->Unload();
 
-		m_name = "Rainbow Runner";
-		m_clearColor = vec4(0.28f, 0.59f, 0.28f, 1.f);
+		m_name = "Jupiter";
+		m_clearColor = vec4(0.15f, 0.33f, 0.58f, 1.f);
 		m_window->SetWindowName(m_name);
 
 		m_scenes[1]->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
@@ -198,8 +224,36 @@ void Game::KeyboardDown()
 
 		m_activeScene->Unload();
 
-		m_name = "Main Menu";
-		m_clearColor = vec4(0.28f, 0.59f, 0.28f, 1.f);
+		m_name = "Earth";
+		m_clearColor = vec4(0.15f, 0.33f, 0.58f, 1.f);
+		m_window->SetWindowName(m_name);
+
+		m_scenes[0]->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+		m_register = m_scenes[0]->GetScene();
+		m_activeScene = m_scenes[0];
+	}
+	else if (m_activeScene == m_scenes[0] && Input::GetKeyDown(Key::DownArrow))
+	{
+		SceneEditor::ResetEditor();
+
+		m_activeScene->Unload();
+
+		m_name = "Space";
+		m_clearColor = vec4(0.15f, 0.33f, 0.58f, 1.f);
+		m_window->SetWindowName(m_name);
+
+		m_scenes[2]->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+		m_register = m_scenes[2]->GetScene();
+		m_activeScene = m_scenes[2];
+	}
+	else if (m_activeScene == m_scenes[2] && Input::GetKeyDown(Key::UpArrow))
+	{
+		SceneEditor::ResetEditor();
+
+		m_activeScene->Unload();
+
+		m_name = "Earth";
+		m_clearColor = vec4(0.15f, 0.33f, 0.58f, 1.f);
 		m_window->SetWindowName(m_name);
 
 		m_scenes[0]->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));

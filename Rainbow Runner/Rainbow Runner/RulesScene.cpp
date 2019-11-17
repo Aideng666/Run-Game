@@ -26,18 +26,32 @@ void RulesScene::InitScene(float windowWidth, float windowHeight)
 		ECS::SetUpIdentifier(entity, bitHolder, "Rules Camera");
 	}
 
-	//Rules Screen Image
 	{
 		auto entity = ECS::CreateEntity();
 
 		ECS::AttachComponent<Sprite>(entity);
 		ECS::AttachComponent<Transform>(entity);
 
-		std::string fileName = "Rules Menu.png";
-		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 384, 200);
+		std::string fileName = "test2.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 198, 197);
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 100.f));
 
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
-		ECS::SetUpIdentifier(entity, bitHolder, "Rules Selection");
+		ECS::SetUpIdentifier(entity, bitHolder, "JUPITER");
 	}
+
+//	//Rules Screen Image
+//	{
+//		auto entity = ECS::CreateEntity();
+//
+//		ECS::AttachComponent<Sprite>(entity);
+//		ECS::AttachComponent<Transform>(entity);
+//
+//		std::string fileName = "Rules Menu.png";
+//		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 384, 200);
+//		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 100.f));
+//
+//		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+//		ECS::SetUpIdentifier(entity, bitHolder, "Rules Selection");
+//	}
 }
