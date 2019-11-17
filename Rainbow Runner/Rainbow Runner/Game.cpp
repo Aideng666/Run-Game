@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Sprite.h"
 
 #include <random>
 
@@ -36,7 +37,7 @@ void Game::InitGame()
 	//Grabs the initialized window
 	m_window = BackEnd::GetWindow();
 
-	m_scenes.push_back(new RainbowRunner("Rainbow Runner"));
+	m_scenes.push_back(new RainbowRunner("Main Menu"));
 	m_activeScene = m_scenes[0];
 
 	m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
@@ -92,16 +93,17 @@ void Game::Update()
 	vec3 position = m_register->get<Transform>(entity).GetPosition();
 	vec3 position2 = m_register->get<Transform>(entity2).GetPosition();
 
+	int bgWidth = m_register->get<Sprite>(entity).GetWidth();
+
 	float speed = 50.f;
 
-
-	if (position.x + 384 <= 0)
+	if (position.x + bgWidth <= 0)
 	{
-		position.x = position2.x + 384;
+		position.x = position2.x + bgWidth;
 	}
-	if (position2.x + 384 <= 0)
+	if (position2.x + bgWidth <= 0)
 	{
-		position2.x = position.x + 384;
+		position2.x = position.x + bgWidth;
 	}
 
 	m_register->get<Transform>(entity).SetPositionX(position.x - (speed * Timer::deltaTime));
@@ -158,7 +160,7 @@ void Game::KeyboardHold()
 
 void Game::KeyboardDown()
 {
-	//Keyboard button down
+	//Keyboard button down	
 }
 
 void Game::KeyboardUp()
