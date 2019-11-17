@@ -3,6 +3,7 @@
 
 #include "BackEnd.h"
 #include "RainbowRunner.h"
+#include "RainbowRunnerGame.h"
 
 //Our main class for running our game
 class Game

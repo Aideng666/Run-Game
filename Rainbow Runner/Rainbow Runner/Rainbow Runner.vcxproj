@@ -151,6 +151,7 @@
     <ClCompile Include="PixelateEffect.cpp" />
     <ClCompile Include="PostEffect.cpp" />
     <ClCompile Include="RainbowRunner.cpp" />
+    <ClCompile Include="RainbowRunnerGame.cpp" />
     <ClCompile Include="RenderingSystem.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneEditor.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="PixelateEffect.h" />
     <ClInclude Include="PostEffect.h" />
     <ClInclude Include="RainbowRunner.h" />
+    <ClInclude Include="RainbowRunnerGame.h" />
     <ClInclude Include="RenderingSystem.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneEditor.h" />
