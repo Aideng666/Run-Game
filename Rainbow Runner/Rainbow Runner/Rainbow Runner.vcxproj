@@ -153,6 +153,7 @@
     <ClCompile Include="RainbowRunner.cpp" />
     <ClCompile Include="RainbowRunnerGame.cpp" />
     <ClCompile Include="RenderingSystem.cpp" />
+    <ClCompile Include="RulesScene.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneEditor.cpp" />
     <ClCompile Include="Selectable.cpp" />
@@ -199,6 +200,7 @@
     <ClInclude Include="RainbowRunner.h" />
     <ClInclude Include="RainbowRunnerGame.h" />
     <ClInclude Include="RenderingSystem.h" />
+    <ClInclude Include="RulesScene.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneEditor.h" />
     <ClInclude Include="Selectable.h" />

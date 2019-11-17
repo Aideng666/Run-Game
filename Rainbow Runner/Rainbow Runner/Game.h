@@ -4,6 +4,7 @@
 #include "BackEnd.h"
 #include "RainbowRunner.h"
 #include "RainbowRunnerGame.h"
+#include "RulesScene.h"
 
 //Our main class for running our game
 class Game
