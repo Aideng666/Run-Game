@@ -28,6 +28,38 @@ void RainbowRunnerGame::InitScene(float windowWidth, float windowHeight)
 		ECS::SetIsMainCamera(entity, true);
 	}
 
+	//Runner Sprite
+	{
+		auto moving = File::LoadJSON("runner.json");
+
+		auto entity = ECS::CreateEntity();
+
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<AnimationController>(entity);
+
+		std::string fileName = "RunnerSprites.png";
+		auto &animController = ECS::GetComponent<AnimationController>(entity);
+		animController.InitUVs(fileName);
+
+		animController.AddAnimation(moving["run"]);
+		animController.GetAnimation(0).SetRepeating(true);
+		animController.AddAnimation(moving["jump"]);
+		animController.GetAnimation(1).SetRepeating(false);
+
+		animController.SetActiveAnim(0);
+
+		auto &anim = animController.GetAnimation(0);
+
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 35, 50, true, &animController);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-40.f, -55.f, 100.f));
+
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Runner Animations");
+
+		m_player = entity;
+	}
+
 	//Background #1
 	{
 		auto entity = ECS::CreateEntity();
@@ -70,4 +102,9 @@ int RainbowRunnerGame::GetBackground()
 int RainbowRunnerGame::GetBackground2()
 {
 	return m_background2;
+}
+
+int RainbowRunnerGame::GetPlayer()
+{
+	return m_player;
 }

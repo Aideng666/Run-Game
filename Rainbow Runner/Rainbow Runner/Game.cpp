@@ -27,30 +27,15 @@ Game::~Game()
 
 void Game::InitGame()
 {	
-	//m_name = "Main Menu";
-	//m_clearColor = vec4(0.15f, 0.33f, 0.58f, 1.f);
-
 	//Create different scenes
-	//std::string MainMenuName = "Main Menu";
-	//vec4 mainMenuClear = vec4(0.15f, 0.33f, 0.58f, 1.f);
-	//std::string GameName = "Rainbow Runner";
-	//vec4 gameClear = vec4(0.15f, 0.33f, 0.58f, 1.f);
-	//std::string RulesName = "Rules";
-	//vec4 rulesClear = vec4(0.15f, 0.33f, 0.58f, 1.f);
-
-	std::string earthName = "Earth";
-	vec4 earthClear = vec4(0.15f, 0.33f, 0.58f, 1.f);
-	std::string jupiterName = "Jupiter";
-	vec4 jupiterClear = vec4(0.15f, 0.33f, 0.58f, 1.f);
+	std::string menuName = "Main Menu";
+	std::string ruleName = "Rules";
+	std::string exitName = "Exit";
 	std::string spaceName = "Space";
-	vec4 spaceClear = vec4(0.15f, 0.33f, 0.58f, 1.f);
-
-	m_name = earthName;
-	m_clearColor = earthClear;
 
 	//Initialize the current scene (starting screen)
-	//m_name = MainMenuName;
-	//m_clearColor = mainMenuClear;
+	m_name = menuName;
+	m_clearColor = vec4(0.15f, 0.33f, 0.58f, 1.f);
 
 	//Initializes the backend
 	BackEnd::InitBackEnd(m_name);
@@ -58,19 +43,10 @@ void Game::InitGame()
 	//Grabs the initialized window
 	m_window = BackEnd::GetWindow();
 
-	//m_scenes.push_back(new RainbowRunner("Rainbow Runner"));
-	//m_activeScene = m_scenes[0];
-
-	//m_activeScene->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
-
-	//m_register = m_activeScene->GetScene();
 	//Load the different scenes into a list
-	//m_scenes.push_back(new RainbowRunner(MainMenuName));
-	//m_scenes.push_back(new RulesScene(RulesName));
-	//m_scenes.push_back(new RainbowRunnerGame(GameName));
-
-	m_scenes.push_back(new RainbowRunner(earthName));
-	m_scenes.push_back(new RulesScene(jupiterName));
+	m_scenes.push_back(new RainbowRunner(menuName));
+	m_scenes.push_back(new RulesScene(ruleName));
+	m_scenes.push_back(new ExitScene(exitName));
 	m_scenes.push_back(new RainbowRunnerGame(spaceName));
 
 	//Access the starting scene
@@ -122,7 +98,7 @@ void Game::Update()
 
 #pragma region Scrolling Background
 	//Scrolls the background for the game IF the active scene is the game scene
-	if (m_activeScene == m_scenes[2])
+	if (m_activeScene == m_scenes[3])
 	{
 		RainbowRunnerGame* scene = (RainbowRunnerGame*)m_activeScene;
 
@@ -202,14 +178,15 @@ void Game::KeyboardHold()
 void Game::KeyboardDown()
 {
 	//Keyboard button down	
+#pragma region Screen Manipulation Functionality
 	//Switches from Main Menu to Game Screen
-	if (m_activeScene == m_scenes[0] && Input::GetKeyDown(Key::Space))
+	if (m_activeScene == m_scenes[0] && Input::GetKeyDown(Key::DownArrow))
 	{
 		SceneEditor::ResetEditor();
 
 		m_activeScene->Unload();
 
-		m_name = "Jupiter";
+		m_name = "Rules";
 		m_clearColor = vec4(0.15f, 0.33f, 0.58f, 1.f);
 		m_window->SetWindowName(m_name);
 
@@ -217,14 +194,29 @@ void Game::KeyboardDown()
 		m_register = m_scenes[1]->GetScene();
 		m_activeScene = m_scenes[1];
 	}
-	//Swtiches back IF active scene is game screen to Main Menu
-	else if (m_activeScene == m_scenes[1] && Input::GetKeyDown(Key::Space))
+	//Switches to the game scene
+	else if (m_activeScene == m_scenes[0] && Input::GetKeyDown(Key::Space))
 	{
 		SceneEditor::ResetEditor();
 
 		m_activeScene->Unload();
 
-		m_name = "Earth";
+		m_name = "Rainbow Runner";
+		m_clearColor = vec4(0.15f, 0.33f, 0.58f, 1.f);
+		m_window->SetWindowName(m_name);
+
+		m_scenes[3]->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+		m_register = m_scenes[3]->GetScene();
+		m_activeScene = m_scenes[3];
+	}
+	//Swtiches back IF active scene is game screen to Main Menu
+	else if (m_activeScene == m_scenes[1] && Input::GetKeyDown(Key::UpArrow))
+	{
+		SceneEditor::ResetEditor();
+
+		m_activeScene->Unload();
+
+		m_name = "Main Menu";
 		m_clearColor = vec4(0.15f, 0.33f, 0.58f, 1.f);
 		m_window->SetWindowName(m_name);
 
@@ -232,13 +224,13 @@ void Game::KeyboardDown()
 		m_register = m_scenes[0]->GetScene();
 		m_activeScene = m_scenes[0];
 	}
-	else if (m_activeScene == m_scenes[0] && Input::GetKeyDown(Key::DownArrow))
+	else if (m_activeScene == m_scenes[1] && Input::GetKeyDown(Key::DownArrow))
 	{
 		SceneEditor::ResetEditor();
 
 		m_activeScene->Unload();
 
-		m_name = "Space";
+		m_name = "Exit";
 		m_clearColor = vec4(0.15f, 0.33f, 0.58f, 1.f);
 		m_window->SetWindowName(m_name);
 
@@ -252,13 +244,52 @@ void Game::KeyboardDown()
 
 		m_activeScene->Unload();
 
-		m_name = "Earth";
+		m_name = "Rules";
+		m_clearColor = vec4(0.15f, 0.33f, 0.58f, 1.f);
+		m_window->SetWindowName(m_name);
+
+		m_scenes[1]->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+		m_register = m_scenes[1]->GetScene();
+		m_activeScene = m_scenes[1];
+	}
+	else if (m_activeScene == m_scenes[2] && Input::GetKeyDown(Key::Space))
+	{
+		exit(1);
+	}
+	else if (Input::GetKeyDown(Key::P))
+	{
+		SceneEditor::ResetEditor();
+
+		m_activeScene->Unload();
+
+		m_name = "Main Menu";
 		m_clearColor = vec4(0.15f, 0.33f, 0.58f, 1.f);
 		m_window->SetWindowName(m_name);
 
 		m_scenes[0]->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 		m_register = m_scenes[0]->GetScene();
 		m_activeScene = m_scenes[0];
+	}
+#pragma endregion
+
+	//Animation  **Once collision logic is set, fix the jumping animation to stop once they collide/hit the ground**
+	if (m_activeScene == m_scenes[3])
+	{
+		if (Input::GetKeyDown(Key::W))
+		{
+			RainbowRunnerGame* scene = (RainbowRunnerGame*)m_activeScene;
+			auto entity = scene->GetPlayer();
+			auto &animController = ECS::GetComponent<AnimationController>(entity);
+			animController.SetActiveAnim(1);
+		}
+		else if (Input::GetKeyDown(Key::S))
+		{
+			RainbowRunnerGame* scene = (RainbowRunnerGame*)m_activeScene;
+			auto entity = scene->GetPlayer();
+			auto &animController = ECS::GetComponent<AnimationController>(entity);
+			animController.SetActiveAnim(0);
+			animController.GetAnimation(1).SetRepeating(true);
+		}
 	}
 }
 

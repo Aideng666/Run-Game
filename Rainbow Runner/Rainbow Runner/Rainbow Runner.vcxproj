@@ -136,6 +136,7 @@
     <ClCompile Include="ECS.cpp" />
     <ClCompile Include="EffectManager.cpp" />
     <ClCompile Include="EntityIdentifier.cpp" />
+    <ClCompile Include="ExitScene.cpp" />
     <ClCompile Include="Framebuffer.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GrainEffect.cpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="ECS.h" />
     <ClInclude Include="EffectManager.h" />
     <ClInclude Include="EntityIdentifier.h" />
+    <ClInclude Include="ExitScene.h" />
     <ClInclude Include="Framebuffer.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GrainEffect.h" />

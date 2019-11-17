@@ -1,11 +1,11 @@
-#include "RainbowRunner.h"
+#include "ExitScene.h"
 
-RainbowRunner::RainbowRunner(std::string name)
+ExitScene::ExitScene(std::string name)
 	: Scene(name)
 {
 }
 
-void RainbowRunner::InitScene(float windowWidth, float windowHeight)
+void ExitScene::InitScene(float windowWidth, float windowHeight)
 {
 	m_sceneReg = new entt::registry;
 
@@ -13,7 +13,7 @@ void RainbowRunner::InitScene(float windowWidth, float windowHeight)
 
 	float aspectRatio = windowWidth / windowHeight;
 
-	//Main Menu Camera
+	//Exit Camera
 	{
 		auto entity = ECS::CreateEntity();
 
@@ -23,21 +23,21 @@ void RainbowRunner::InitScene(float windowWidth, float windowHeight)
 		ECS::GetComponent<Camera>(entity).Orthographic(aspectRatio, temp.x, temp.y, temp.z, temp.w, -100.f, 100.f);
 
 		unsigned int bitHolder = EntityIdentifier::CameraBit();
-		ECS::SetUpIdentifier(entity, bitHolder, "Main Menu Camera");
+		ECS::SetUpIdentifier(entity, bitHolder, "Exit Camera");
 	}
 
-	//Main Menu Screen
+	//Exit Screen
 	{
 		auto entity = ECS::CreateEntity();
-		
+
 		ECS::AttachComponent<Sprite>(entity);
 		ECS::AttachComponent<Transform>(entity);
 
-		std::string fileName = "Run Menu.png";
+		std::string fileName = "Exit Menu.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 384, 200);
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 100.f));
 
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
-		ECS::SetUpIdentifier(entity, bitHolder, "Run Selection");
+		ECS::SetUpIdentifier(entity, bitHolder, "Exit Selection");
 	}
 }

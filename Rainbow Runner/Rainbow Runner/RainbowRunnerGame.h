@@ -11,8 +11,10 @@ public:
 
 	int GetBackground();
 	int GetBackground2();
+	int GetPlayer();
 
 private:
 	int m_background;
 	int m_background2;
+	int m_player;
 };
