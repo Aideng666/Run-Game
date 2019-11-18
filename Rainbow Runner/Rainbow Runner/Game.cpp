@@ -110,7 +110,7 @@ void Game::Update()
 
 		int bgWidth = m_register->get<Sprite>(entity).GetWidth();
 
-		float speed = 50.f;
+		float speed = 100.f;
 
 		if (position.x + bgWidth <= 0)
 		{
