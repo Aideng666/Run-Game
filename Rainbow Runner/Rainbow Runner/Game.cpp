@@ -273,6 +273,7 @@ void Game::KeyboardDown()
 	}
 #pragma endregion
 
+#pragma region Sprite Animation
 	//Animation  **Once collision logic is set, fix the jumping animation to stop once they collide/hit the ground**
 	if (m_activeScene == m_scenes[3])
 	{
@@ -292,6 +293,7 @@ void Game::KeyboardDown()
 			animController.GetAnimation(1).SetRepeating(true);
 		}
 	}
+#pragma endregion
 }
 
 void Game::KeyboardUp()
