@@ -174,6 +174,23 @@ void Game::AcceptInput()
 void Game::KeyboardHold()
 {
 	//Keyboard button held
+	if (m_activeScene == m_scenes[3])
+	{
+		RainbowRunnerGame* scene = (RainbowRunnerGame*)m_activeScene;
+		auto entity = scene->GetPlayer();
+		vec3 position = m_register->get<Transform>(entity).GetPosition();
+
+		float speed = 50.f;
+
+		if (Input::GetKey(Key::D))
+		{
+			m_register->get<Transform>(entity).SetPositionX(position.x + (speed * Timer::deltaTime));
+		}
+		else if (Input::GetKey(Key::A))
+		{
+			m_register->get<Transform>(entity).SetPositionX(position.x - (speed * Timer::deltaTime));
+		}
+	}
 }
 
 void Game::KeyboardDown()
@@ -277,14 +294,14 @@ void Game::KeyboardDown()
 	//Animation  **Once collision logic is set, fix the jumping animation to stop once they collide/hit the ground**
 	if (m_activeScene == m_scenes[3])
 	{
-		if (Input::GetKeyDown(Key::W))
+		if (Input::GetKeyDown(Key::K))
 		{
 			RainbowRunnerGame* scene = (RainbowRunnerGame*)m_activeScene;
 			auto entity = scene->GetPlayer();
 			auto &animController = ECS::GetComponent<AnimationController>(entity);
 			animController.SetActiveAnim(1);
 		}
-		else if (Input::GetKeyDown(Key::S))
+		else if (Input::GetKeyDown(Key::L))
 		{
 			RainbowRunnerGame* scene = (RainbowRunnerGame*)m_activeScene;
 			auto entity = scene->GetPlayer();
