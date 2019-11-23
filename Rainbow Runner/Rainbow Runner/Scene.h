@@ -3,7 +3,7 @@
 
 #include "JSON.h"
 #include "ECS.h"
-
+#include "PhysicsBody.h"
 
 class Scene
 {
@@ -86,6 +86,11 @@ inline void to_json(nlohmann::json& j, const Scene& scene)
 		{
 			//Stores the transform
 			j[std::to_string(counter)]["Transform"] = scene.GetScene()->get<Transform>(entity);
+		}
+
+		if (identity & EntityIdentifier::PhysicsBit())
+		{
+			j[std::to_string(counter)]["PhysicsBody"] = scene.GetScene()->get<PhysicsBody>(entity);
 		}
 
 		//If you create new classes that you add as a component,
@@ -196,6 +201,12 @@ inline void from_json(const nlohmann::json& j, Scene& scene)
 			reg.get<Transform>(entity) = j["Scene"][std::to_string(i)]["Transform"];
 
 			//Transforms require no further initialization
+		}
+
+		if (identity & EntityIdentifier::PhysicsBit())
+		{
+			reg.assign<PhysicsBody>(entity);
+			reg.get<PhysicsBody>(entity) = j["Scene"][std::to_string(i)]["PhysicsBody"];
 		}
 	}
 }
