@@ -84,6 +84,13 @@ private:
 	bool m_motion = false;
 	bool m_click = false;
 	bool m_wheel = false;
+
+	vec2 m_velocity = vec2(0.f, 0.f);
+	vec2 acceleration = vec2(0.f, 0.f);
+
+	int m_maxHeight = -28.f;
+	int m_currentGround = -55.f;
+	bool jump = false;
 };
 
 

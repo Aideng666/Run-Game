@@ -33,6 +33,7 @@ void RainbowRunnerGame::InitScene(float windowWidth, float windowHeight)
 		auto moving = File::LoadJSON("runner.json");
 
 		auto entity = ECS::CreateEntity();
+		EntityIdentifier::MainPlayer(entity);
 
 		ECS::AttachComponent<Sprite>(entity);
 		ECS::AttachComponent<Transform>(entity);
@@ -56,6 +57,7 @@ void RainbowRunnerGame::InitScene(float windowWidth, float windowHeight)
 
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::AnimationBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "Runner Animations");
+		ECS::SetIsMainPlayer(entity, true);
 
 		m_player = entity;
 	}

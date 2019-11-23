@@ -174,6 +174,7 @@ void Game::AcceptInput()
 void Game::KeyboardHold()
 {
 	//Keyboard button held
+	//Movement of the sprite
 	if (m_activeScene == m_scenes[3])
 	{
 		RainbowRunnerGame* scene = (RainbowRunnerGame*)m_activeScene;
@@ -290,27 +291,55 @@ void Game::KeyboardDown()
 	}
 #pragma endregion
 
-#pragma region Sprite Animation
-	//Animation  **Once collision logic is set, fix the jumping animation to stop once they collide/hit the ground**
-	if (m_activeScene == m_scenes[3])
+#pragma region Jumping Code
+if (m_activeScene == m_scenes[3])
 	{
-		if (Input::GetKeyDown(Key::K))
+		vec3 position = m_register->get<Transform>(EntityIdentifier::MainPlayer()).GetPosition();
+
+		if (Input::GetKeyDown(Key::W))
 		{
 			RainbowRunnerGame* scene = (RainbowRunnerGame*)m_activeScene;
 			auto entity = scene->GetPlayer();
-			auto &animController = ECS::GetComponent<AnimationController>(entity);
+			auto& animController = ECS::GetComponent<AnimationController>(entity);
 			animController.SetActiveAnim(1);
+
+			if (m_register->get<Transform>(EntityIdentifier::MainPlayer()).GetPositionY() == m_currentGround)
+			{
+				acceleration.y = 500.f;
+			}
 		}
-		else if (Input::GetKeyDown(Key::L))
+
+		if (m_register->get<Transform>(EntityIdentifier::MainPlayer()).GetPositionY() < m_maxHeight)
 		{
-			RainbowRunnerGame* scene = (RainbowRunnerGame*)m_activeScene;
-			auto entity = scene->GetPlayer();
-			auto &animController = ECS::GetComponent<AnimationController>(entity);
-			animController.SetActiveAnim(0);
-			animController.GetAnimation(1).SetRepeating(true);
+			m_velocity = m_velocity + (acceleration * Timer::deltaTime);
+
+			if (m_register->get<Transform>(EntityIdentifier::MainPlayer()).GetPositionY() < m_currentGround + 3 && jump == true)
+			{
+				m_velocity.y = 0.f;
+				acceleration.y = 0.f;
+				position.y = m_currentGround;
+				jump = false;
+				auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
+				animController.SetActiveAnim(0);
+				animController.GetAnimation(1).Reset();
+			}
 		}
+		else if (m_register->get<Transform>(EntityIdentifier::MainPlayer()).GetPositionY() >= m_maxHeight)
+		{
+			m_velocity = m_velocity - (acceleration * Timer::deltaTime);
+		}
+
+		position = position + (vec3(m_velocity.x, m_velocity.y, 0.f) * Timer::deltaTime);
+
+		if (position.y > m_currentGround + 5)
+		{
+			jump = true;
+		}
+
+		m_register->get<Transform>(EntityIdentifier::MainPlayer()).SetPosition(position);
 	}
 #pragma endregion
+
 }
 
 void Game::KeyboardUp()
