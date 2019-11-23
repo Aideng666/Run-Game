@@ -62,6 +62,21 @@ void RainbowRunnerGame::InitScene(float windowWidth, float windowHeight)
 		m_player = entity;
 	}
 
+	//Platforms
+	{
+		auto entity = ECS::CreateEntity();
+
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+
+		std::string fileName = "GreyPlatformL.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 256, 183);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, -35.f, 100.f));
+
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Large Grey Platform");	
+	}
+
 	//Background #1
 	{
 		auto entity = ECS::CreateEntity();

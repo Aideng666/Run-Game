@@ -92,7 +92,6 @@ inline void to_json(nlohmann::json& j, const Scene& scene)
 		//you need to #1 add a static (unique) bit for that class
 		//And then add more if statements after this point
 
-
 		//For each loop increase the counter
 		counter++;
 	}

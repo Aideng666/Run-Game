@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "Sprite.h"
+#include "BackEnd.h"
 
 #include <random>
 
@@ -173,8 +174,10 @@ void Game::AcceptInput()
 
 void Game::KeyboardHold()
 {
-	//Keyboard button held
+	int windowWidth = BackEnd::GetWindowWidth();
+
 	//Movement of the sprite
+#pragma region Movement
 	if (m_activeScene == m_scenes[3])
 	{
 		RainbowRunnerGame* scene = (RainbowRunnerGame*)m_activeScene;
@@ -190,8 +193,10 @@ void Game::KeyboardHold()
 		else if (Input::GetKey(Key::A))
 		{
 			m_register->get<Transform>(entity).SetPositionX(position.x - (speed * Timer::deltaTime));
-		}
+		}			
 	}
+#pragma endregion
+	
 }
 
 void Game::KeyboardDown()
