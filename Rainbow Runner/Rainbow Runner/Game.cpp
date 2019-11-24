@@ -303,15 +303,15 @@ void Game::KeyboardDown()
 #pragma region Jumping Code
 if (m_activeScene == m_scenes[3])
 	{
+		RainbowRunnerGame* scene = (RainbowRunnerGame*)m_activeScene;
+		auto entity = scene->GetPlayer();
+		auto& animController = ECS::GetComponent<AnimationController>(entity);
+		//auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
 		vec3 position = m_register->get<Transform>(EntityIdentifier::MainPlayer()).GetPosition();
 
 		if (Input::GetKeyDown(Key::W))
-		{
-			m_register->get<PhysicsBody>(EntityIdentifier::MainPlayer()).SetGravity(false);
-
-			RainbowRunnerGame* scene = (RainbowRunnerGame*)m_activeScene;
-			auto entity = scene->GetPlayer();
-			auto& animController = ECS::GetComponent<AnimationController>(entity);
+		{	
 			animController.SetActiveAnim(1);
 
 			if (m_register->get<Transform>(EntityIdentifier::MainPlayer()).GetPositionY() == m_currentGround)

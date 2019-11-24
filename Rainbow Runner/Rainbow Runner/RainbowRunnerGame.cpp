@@ -87,7 +87,7 @@ void RainbowRunnerGame::InitScene(float windowWidth, float windowHeight)
 
 		std::string fileName = "GreyPlatformL.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 256, 183);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, -140.f, -10.f));//50.f, -35.f, 100.f
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, -160.f, -10.f));//50.f, -35.f, 100.f
 
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
