@@ -1,7 +1,9 @@
 #pragma once
 
+#include <GL/glew.h>
 #include "JSON.h"
 #include "Vector.h"
+#include "VertexManager.h"
 #include "EntityIdentifier.h"
 #include "Transform.h"
 
@@ -36,6 +38,9 @@ public:
 
 	void ApplyForce(vec3 force);
 
+	void InitBody();
+	void DrawBody();
+
 	vec3 GetForce() const;
 	vec3 GetAcceleration() const;
 	float GetMaxVelo() const;
@@ -59,6 +64,9 @@ public:
 	unsigned int GetCollideID() const;
 
 	bool GetDynamic() const;
+
+	static bool GetDraw();
+	static void SetDraw(bool drawBodies);
 
 	void SetForce(vec3 force);
 	void SetAcceleration(vec3 accel);
@@ -87,6 +95,11 @@ public:
 	void SetDynamic(bool isDynamic);
 
 private:
+	static bool m_drawBodies;
+
+	GLuint m_vao = GL_NONE;
+	GLuint m_vboPos = GL_NONE;
+
 	vec3 m_appliedForce = vec3(0.f, 0.f, 0.f);
 	vec3 m_frictionForce = vec3(0.f, 0.f, 0.f);
 	vec3 m_netForce = vec3(0.f, 0.f, 0.f);

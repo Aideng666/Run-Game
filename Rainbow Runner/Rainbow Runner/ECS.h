@@ -14,7 +14,7 @@ class ECS abstract
 public:
 	//Attach the register to the ECS
 	//*Please don't forget to do this before creating new entities
-	static void AttachRegister(entt::registry* reg);	
+	static void AttachRegister(entt::registry* reg);
 	//Unattach the register to the ECS
 	//*Please don't forget to do this when you're done creating entities
 	static void UnattachRegister();
@@ -50,8 +50,6 @@ private:
 	static entt::registry* m_reg;
 };
 
-#endif // !__ECS_H__
-
 template<typename T>
 inline void ECS::AttachComponent(unsigned entity)
 {
@@ -80,3 +78,5 @@ inline void ECS::RemoveComponent(unsigned entity)
 	//Remove this component from the entity
 	m_reg->remove<T>(entity);
 }
+
+#endif // !__ECS_H__

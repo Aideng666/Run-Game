@@ -55,6 +55,8 @@ void Game::InitGame()
 	m_scenes[0]->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 	m_register = m_scenes[0]->GetScene();
 	m_activeScene = m_scenes[0];	
+
+	PhysicsSystem::Init();
 }
 
 bool Game::Run()
@@ -97,6 +99,8 @@ void Game::Update()
 	Timer::Update();
 	//Update the backend
 	BackEnd::Update(m_register);
+
+	PhysicsSystem::Update(m_register);
 
 #pragma region Scrolling Background
 	//Scrolls the background for the game IF the active scene is the game scene
@@ -184,7 +188,7 @@ void Game::KeyboardHold()
 		auto entity = scene->GetPlayer();
 		vec3 position = m_register->get<Transform>(entity).GetPosition();
 
-		float speed = 50.f;
+		float speed = 70.f;
 
 		if (Input::GetKey(Key::D))
 		{
@@ -280,7 +284,7 @@ void Game::KeyboardDown()
 	{
 		exit(1);
 	}
-	else if (Input::GetKeyDown(Key::P))
+	else if (Input::GetKeyDown(Key::Backspace))
 	{
 		SceneEditor::ResetEditor();
 
@@ -303,6 +307,8 @@ if (m_activeScene == m_scenes[3])
 
 		if (Input::GetKeyDown(Key::W))
 		{
+			m_register->get<PhysicsBody>(EntityIdentifier::MainPlayer()).SetGravity(false);
+
 			RainbowRunnerGame* scene = (RainbowRunnerGame*)m_activeScene;
 			auto entity = scene->GetPlayer();
 			auto& animController = ECS::GetComponent<AnimationController>(entity);
@@ -310,7 +316,7 @@ if (m_activeScene == m_scenes[3])
 
 			if (m_register->get<Transform>(EntityIdentifier::MainPlayer()).GetPositionY() == m_currentGround)
 			{
-				acceleration.y = 500.f;
+				acceleration.y = 600.f;
 			}
 		}
 
@@ -349,6 +355,11 @@ if (m_activeScene == m_scenes[3])
 
 void Game::KeyboardUp()
 {
+	if (Input::GetKeyUp(Key::P))
+	{
+		PhysicsBody::SetDraw(!PhysicsBody::GetDraw());
+	}
+
 	if (Input::GetKeyUp(Key::F1))
 	{
 		if (!UI::m_isInit)

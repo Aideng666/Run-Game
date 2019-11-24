@@ -20,6 +20,7 @@ unsigned int CollisionIDs::Enemy()
 }
 
 vec3 PhysicsBody::m_gravityAcceleration = vec3(0.f, -35.f, 0.f);
+bool PhysicsBody::m_drawBodies = false;
 
 PhysicsBody::PhysicsBody(vec2 botLeft, vec2 topRight, vec2 centerOffset, unsigned int objectSpecifier, unsigned int collidesWith, bool isDynamic)
 {
@@ -40,6 +41,8 @@ PhysicsBody::PhysicsBody(vec2 botLeft, vec2 topRight, vec2 centerOffset, unsigne
 	m_collideID = collidesWith;
 
 	m_dynamic = isDynamic;
+
+	InitBody();
 }
 
 PhysicsBody::PhysicsBody(float width, float height, vec2 centerOffset, unsigned int objectSpecifier, unsigned int collidesWith, bool isDynamic)
@@ -59,6 +62,8 @@ PhysicsBody::PhysicsBody(float width, float height, vec2 centerOffset, unsigned 
 	m_bodyID = objectSpecifier;
 
 	m_dynamic = isDynamic;
+
+	InitBody();
 }
 
 void PhysicsBody::Update(Transform * trans, float dt)
@@ -113,6 +118,32 @@ void PhysicsBody::Update(Transform * trans, float dt)
 void PhysicsBody::ApplyForce(vec3 force)
 {
 	m_appliedForce = m_appliedForce + force;
+}
+
+void PhysicsBody::InitBody()
+{
+	m_vao = VertexManager::CreateVAO();
+	glBindVertexArray(m_vao);
+
+	glEnableVertexAttribArray(0); 
+
+	m_vboPos = VertexManager::GetPlaneVertVBO();
+
+#pragma warning(push)
+#pragma warning(disable : 4312)
+	glBindBuffer(GL_ARRAY_BUFFER, m_vboPos);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void*>(0));
+#pragma warning(pop)
+
+	glBindBuffer(GL_ARRAY_BUFFER, GL_NONE);
+	glBindVertexArray(GL_NONE);
+}
+
+void PhysicsBody::DrawBody()
+{
+	glBindVertexArray(m_vao);
+	glDrawArrays(GL_TRIANGLES, 0, 6);
+	glBindVertexArray(GL_NONE);
 }
 
 vec3 PhysicsBody::GetForce() const
@@ -208,6 +239,16 @@ unsigned int PhysicsBody::GetCollideID() const
 bool PhysicsBody::GetDynamic() const
 {
 	return m_dynamic;
+}
+
+bool PhysicsBody::GetDraw()
+{
+	return m_drawBodies;
+}
+
+void PhysicsBody::SetDraw(bool drawBodies)
+{
+	m_drawBodies = drawBodies;
 }
 
 void PhysicsBody::SetForce(vec3 force)
