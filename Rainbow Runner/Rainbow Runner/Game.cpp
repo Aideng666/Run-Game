@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "Sprite.h"
 #include "BackEnd.h"
+#include "PhysicsSystem.h"
 
 #include <random>
 
@@ -306,21 +307,25 @@ if (m_activeScene == m_scenes[3])
 		RainbowRunnerGame* scene = (RainbowRunnerGame*)m_activeScene;
 		auto entity = scene->GetPlayer();
 		auto& animController = ECS::GetComponent<AnimationController>(entity);
-		//auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+		auto& body = ECS::GetComponent<PhysicsBody>(entity);
 
 		vec3 position = m_register->get<Transform>(EntityIdentifier::MainPlayer()).GetPosition();
+
 
 		if (Input::GetKeyDown(Key::W))
 		{	
 			animController.SetActiveAnim(1);
 
-			if (m_register->get<Transform>(EntityIdentifier::MainPlayer()).GetPositionY() == m_currentGround)
+			/*if (m_register->get<Transform>(EntityIdentifier::MainPlayer()).GetPositionY() == m_currentGround)
 			{
 				acceleration.y = 600.f;
-			}
+			}	*/	
+
+			body.SetAcceleration(vec3(0.f, 60.f, 0.f));
+			body.SetVelocity(vec3(0.f, 60.f, 0.f));
 		}
 
-		if (m_register->get<Transform>(EntityIdentifier::MainPlayer()).GetPositionY() < m_maxHeight)
+		/*if (m_register->get<Transform>(EntityIdentifier::MainPlayer()).GetPositionY() < m_maxHeight)
 		{
 			m_velocity = m_velocity + (acceleration * Timer::deltaTime);
 
@@ -347,7 +352,7 @@ if (m_activeScene == m_scenes[3])
 			jump = true;
 		}
 
-		m_register->get<Transform>(EntityIdentifier::MainPlayer()).SetPosition(position);
+		m_register->get<Transform>(EntityIdentifier::MainPlayer()).SetPosition(position);*/
 	}
 #pragma endregion
 
