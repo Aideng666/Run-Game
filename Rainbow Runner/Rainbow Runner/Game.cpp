@@ -35,6 +35,7 @@ void Game::InitGame()
 	std::string ruleName = "Rules";
 	std::string exitName = "Exit";
 	std::string spaceName = "Space";
+	std::string rulesSecName = "Rules";
 
 	//Initialize the current scene (starting screen)
 	m_name = menuName;
@@ -51,6 +52,7 @@ void Game::InitGame()
 	m_scenes.push_back(new RulesScene(ruleName));
 	m_scenes.push_back(new ExitScene(exitName));
 	m_scenes.push_back(new RainbowRunnerGame(spaceName));
+	m_scenes.push_back(new RulesSection(rulesSecName));
 
 	//Access the starting scene
 	m_scenes[0]->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
@@ -106,17 +108,18 @@ void Game::Update()
 #pragma region Scrolling Background
 	//Scrolls the background for the game IF the active scene is the game scene
 	if (m_activeScene == m_scenes[3])
-	{
+	{		
 		RainbowRunnerGame* scene = (RainbowRunnerGame*)m_activeScene;
 
+		//Background Scrolling
 		auto entity = scene->GetBackground();
 		auto entity2 = scene->GetBackground2();
 		vec3 position = m_register->get<Transform>(entity).GetPosition();
 		vec3 position2 = m_register->get<Transform>(entity2).GetPosition();
-
 		int bgWidth = m_register->get<Sprite>(entity).GetWidth();
 
-		float speed = 100.f;
+		float bgSpeed = 100.f;
+		float platSpeed = 70.f;
 
 		if (position.x + bgWidth <= 0)
 		{
@@ -127,8 +130,31 @@ void Game::Update()
 			position2.x = position.x + bgWidth;
 		}
 
-		m_register->get<Transform>(entity).SetPositionX(position.x - (speed * Timer::deltaTime));
-		m_register->get<Transform>(entity2).SetPositionX(position2.x - (speed * Timer::deltaTime));
+		if (start)
+		{
+			m_register->get<Transform>(entity).SetPositionX(position.x - (bgSpeed * Timer::deltaTime));
+			m_register->get<Transform>(entity2).SetPositionX(position2.x - (bgSpeed * Timer::deltaTime));
+		}
+		///////////////////////////////////////////////////////////////////////////////////////
+		//Platforms Moving (put into one if after!!!)
+		auto p1 = scene->GetPlatform1();
+		auto p2 = scene->GetPlatform2();
+		auto p3 = scene->GetPlatform3();
+		auto p4 = scene->GetPlatform4();
+		auto p5 = scene->GetPlatform5();
+		auto p6 = scene->GetPlatform6();
+		auto p7 = scene->GetPlatform7();
+
+		if (start)
+		{
+			m_register->get<Transform>(p1).SetPositionX(m_register->get<Transform>(p1).GetPosition().x - (platSpeed * Timer::deltaTime));
+			m_register->get<Transform>(p2).SetPositionX(m_register->get<Transform>(p2).GetPosition().x - (platSpeed * Timer::deltaTime));
+			m_register->get<Transform>(p3).SetPositionX(m_register->get<Transform>(p3).GetPosition().x - (platSpeed * Timer::deltaTime));
+			m_register->get<Transform>(p4).SetPositionX(m_register->get<Transform>(p4).GetPosition().x - (platSpeed * Timer::deltaTime));
+			m_register->get<Transform>(p5).SetPositionX(m_register->get<Transform>(p5).GetPosition().x - (platSpeed * Timer::deltaTime));
+			m_register->get<Transform>(p6).SetPositionX(m_register->get<Transform>(p6).GetPosition().x - (platSpeed * Timer::deltaTime));
+			m_register->get<Transform>(p7).SetPositionX(m_register->get<Transform>(p7).GetPosition().x - (platSpeed * Timer::deltaTime));
+		}
 	}
 #pragma endregion
 
@@ -189,7 +215,7 @@ void Game::KeyboardHold()
 		auto entity = scene->GetPlayer();
 		vec3 position = m_register->get<Transform>(entity).GetPosition();
 
-		float speed = 70.f;
+		float speed = 60.f;
 
 		if (Input::GetKey(Key::D))
 		{
@@ -253,6 +279,7 @@ void Game::KeyboardDown()
 		m_register = m_scenes[0]->GetScene();
 		m_activeScene = m_scenes[0];
 	}
+	//Switches from rules to exit button
 	else if (m_activeScene == m_scenes[1] && Input::GetKeyDown(Key::DownArrow))
 	{
 		SceneEditor::ResetEditor();
@@ -267,6 +294,22 @@ void Game::KeyboardDown()
 		m_register = m_scenes[2]->GetScene();
 		m_activeScene = m_scenes[2];
 	}
+	//Switches to the rules section
+	else if (m_activeScene == m_scenes[1] && Input::GetKeyDown(Key::Space))
+	{
+		SceneEditor::ResetEditor();
+
+		m_activeScene->Unload();
+
+		m_name = "Rules";
+		m_clearColor = vec4(0.15f, 0.33f, 0.58f, 1.f);
+		m_window->SetWindowName(m_name);
+
+		m_scenes[4]->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+		m_register = m_scenes[4]->GetScene();
+		m_activeScene = m_scenes[4];
+	}
+	//Swithces from exit to rules button
 	else if (m_activeScene == m_scenes[2] && Input::GetKeyDown(Key::UpArrow))
 	{
 		SceneEditor::ResetEditor();
@@ -281,11 +324,13 @@ void Game::KeyboardDown()
 		m_register = m_scenes[1]->GetScene();
 		m_activeScene = m_scenes[1];
 	}
+	//Exits the program
 	else if (m_activeScene == m_scenes[2] && Input::GetKeyDown(Key::Space))
 	{
 		exit(1);
 	}
-	else if (Input::GetKeyDown(Key::Backspace))
+	//Returns to the main menu from the rules section
+	else if (m_activeScene == m_scenes[4] && Input::GetKeyDown(Key::Backspace))
 	{
 		SceneEditor::ResetEditor();
 
@@ -311,50 +356,39 @@ if (m_activeScene == m_scenes[3])
 
 		vec3 position = m_register->get<Transform>(EntityIdentifier::MainPlayer()).GetPosition();
 
-
-		if (Input::GetKeyDown(Key::W))
+		//Sets upwards vel + accel to make the sprite "jump"
+		//Changes the corresponding animation
+		if (Input::GetKeyDown(Key::W) && !jump)
 		{	
-			animController.SetActiveAnim(1);
-
-			/*if (m_register->get<Transform>(EntityIdentifier::MainPlayer()).GetPositionY() == m_currentGround)
-			{
-				acceleration.y = 600.f;
-			}	*/	
-
-			body.SetAcceleration(vec3(0.f, 60.f, 0.f));
-			body.SetVelocity(vec3(0.f, 60.f, 0.f));
-		}
-
-		/*if (m_register->get<Transform>(EntityIdentifier::MainPlayer()).GetPositionY() < m_maxHeight)
-		{
-			m_velocity = m_velocity + (acceleration * Timer::deltaTime);
-
-			if (m_register->get<Transform>(EntityIdentifier::MainPlayer()).GetPositionY() < m_currentGround + 3 && jump == true)
-			{
-				m_velocity.y = 0.f;
-				acceleration.y = 0.f;
-				position.y = m_currentGround;
-				jump = false;
-				auto& animController = ECS::GetComponent<AnimationController>(EntityIdentifier::MainPlayer());
-				animController.SetActiveAnim(0);
-				animController.GetAnimation(1).Reset();
-			}
-		}
-		else if (m_register->get<Transform>(EntityIdentifier::MainPlayer()).GetPositionY() >= m_maxHeight)
-		{
-			m_velocity = m_velocity - (acceleration * Timer::deltaTime);
-		}
-
-		position = position + (vec3(m_velocity.x, m_velocity.y, 0.f) * Timer::deltaTime);
-
-		if (position.y > m_currentGround + 5)
-		{
+			body.SetAcceleration(vec3(0.f, 85.f, 0.f));
+			body.SetVelocity(vec3(0.f, 85.f, 0.f));
 			jump = true;
+			animController.SetActiveAnim(1);
+			animController.GetAnimation(1).Reset();
 		}
 
-		m_register->get<Transform>(EntityIdentifier::MainPlayer()).SetPosition(position);*/
+		//Checks to see if the player can jump again and changes animation
+		//Eliminates double jumping
+		if (body.GetAcceleration().y == 0.f && body.GetVelocity().y == 0.f)
+		{
+			jump = false;
+			animController.SetActiveAnim(0);
+		}
 	}
 #pragma endregion
+
+	if (m_activeScene == m_scenes[3])
+	{
+		if (Input::GetKeyDown(Key::Enter))
+		{
+			start = true;
+		}
+	}
+	//Exits fullscreen :)
+	if (Input::GetKeyDown(Key::E))
+	{
+		exit(1);
+	}
 
 }
 

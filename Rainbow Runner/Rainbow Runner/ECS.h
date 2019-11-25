@@ -8,6 +8,7 @@
 #include "AnimationController.h"
 #include "Transform.h"
 #include "EntityIdentifier.h"
+#include "HorizontalScroll.h"
 
 class ECS abstract
 {

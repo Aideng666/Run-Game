@@ -68,8 +68,8 @@ void PhysicsSystem::Run(entt::registry * reg)
 							{			
 								trans1.SetPosition(trans1.GetPosition() + (-body1.GetVelocity() * (Timer::deltaTime)));
 
-								body1.SetAcceleration(vec3(0.f, 0.f, 0.f));//60.f y
-								body1.SetVelocity(vec3(0.f, 0.f, 0.f));//60.f y
+								body1.SetAcceleration(vec3(0.f, 0.f, 0.f));
+								body1.SetVelocity(vec3(0.f, 0.f, 0.f));
 							}
 						}
 					}

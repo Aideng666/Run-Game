@@ -31,6 +31,7 @@ public:
 	static unsigned int AnimationBit();
 	static unsigned int LinkBit();
 	static unsigned int PhysicsBit();
+	static unsigned int HoriScrollCameraBit();
 
 	//Setters
 	//Sets main player entity
@@ -74,6 +75,7 @@ private:
 	static unsigned int m_animationBit;
 	static unsigned int m_linkBit;
 	static unsigned int m_physicsBit;
+	static unsigned int m_horiScrollCameraBit;
 };
 
 #ifndef __ENTITYIDENTIFIERJSON_H__

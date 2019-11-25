@@ -9,6 +9,7 @@ unsigned int EntityIdentifier::m_transformBit		= 0x100;
 unsigned int EntityIdentifier::m_animationBit		= 0x1000;
 unsigned int EntityIdentifier::m_linkBit			= 0x10000;
 unsigned int EntityIdentifier::m_physicsBit			= 0x100000;
+unsigned int EntityIdentifier::m_horiScrollCameraBit =0x1000000;
 
 //(having just camera means the bit = 1)
 //(having sprite, animation and transform)
@@ -104,6 +105,11 @@ unsigned int EntityIdentifier::PhysicsBit()
 {
 	//Gets the bit for the Physics Body
 	return m_physicsBit;
+}
+
+unsigned int EntityIdentifier::HoriScrollCameraBit()
+{
+	return m_horiScrollCameraBit;
 }
 
 void EntityIdentifier::MainPlayer(unsigned int entity)

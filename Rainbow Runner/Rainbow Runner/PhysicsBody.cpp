@@ -19,7 +19,7 @@ unsigned int CollisionIDs::Enemy()
 	return m_enemyID;
 }
 
-vec3 PhysicsBody::m_gravityAcceleration = vec3(0.f, -35.f, 0.f);
+vec3 PhysicsBody::m_gravityAcceleration = vec3(0.f, -100.f, 0.f);
 bool PhysicsBody::m_drawBodies = false;
 
 PhysicsBody::PhysicsBody(vec2 botLeft, vec2 topRight, vec2 centerOffset, unsigned int objectSpecifier, unsigned int collidesWith, bool isDynamic)

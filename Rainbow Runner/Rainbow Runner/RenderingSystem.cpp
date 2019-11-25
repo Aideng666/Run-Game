@@ -49,6 +49,15 @@ void RenderingSystem::Update(entt::registry* reg)
 		//Unbinds the shader
 		drawShader.Unbind();
 	}
+
+	auto view2_1 = reg->view<HorizontalScroll>();
+
+	for (auto entity : view2_1)
+	{
+		auto& scroll = view2_1.get(entity);
+
+		scroll.Update();
+	}
 }
 
 struct

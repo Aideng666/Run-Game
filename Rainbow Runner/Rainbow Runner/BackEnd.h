@@ -73,6 +73,8 @@ public:
 	//Wheel Event
 	static WheelEvent GetWheelEvent();
 
+	static void GetDesktopResolution(int& horizontal, int& vertical);
+
 	//Setters
 	//Window Width
 	static void SetWindowWidth(GLsizei windowWidth);
