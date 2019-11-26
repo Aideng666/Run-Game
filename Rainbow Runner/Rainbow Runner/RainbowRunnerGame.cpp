@@ -193,7 +193,6 @@ void RainbowRunnerGame::InitScene(float windowWidth, float windowHeight)
 	}
 	//Platform 4
 	{
-
 		auto entity = ECS::CreateEntity();
 
 		ECS::AttachComponent<Sprite>(entity);
@@ -272,6 +271,57 @@ void RainbowRunnerGame::InitScene(float windowWidth, float windowHeight)
 	}
 #pragma endregion
 
+#pragma region Coloured Backgrounds
+	//Red Colour Back
+	{
+		auto entity = ECS::CreateEntity();
+
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+
+		std::string fileName = "RedBackground.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 384, 200);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 0.f));
+
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Red Background");
+
+		m_redBack = entity;
+	}
+	//Blue Colour Back
+	{
+		auto entity = ECS::CreateEntity();
+
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+
+		std::string fileName = "BlueBackground.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 384, 200);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 0.f));
+
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Blue Background");
+
+		m_blueBack = entity;
+	}
+	//Green Colour Back
+	{
+		auto entity = ECS::CreateEntity();
+
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+
+		std::string fileName = "GreenBackground.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 384, 200);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 0.f));
+
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Green Background");
+
+		m_greenBack = entity;
+	}
+#pragma endregion
+
 #pragma region BACKGROUNDS
 	//Background #1
 	{
@@ -282,7 +332,7 @@ void RainbowRunnerGame::InitScene(float windowWidth, float windowHeight)
 
 		std::string fileName = "Space Background.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 384, 200);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 100.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 70.f));
 
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "Space Background 1");
@@ -298,7 +348,7 @@ void RainbowRunnerGame::InitScene(float windowWidth, float windowHeight)
 
 		std::string fileName = "Space Background.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 384, 200);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(384.f, 0.f, 100.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(384.f, 0.f, 70.f));
 
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "Space Background 2");
@@ -357,3 +407,16 @@ int RainbowRunnerGame::GetPlatform7()
 	return platforms[6];
 }
 #pragma endregion
+
+int RainbowRunnerGame::GetRedBack()
+{
+	return m_redBack;
+}
+int RainbowRunnerGame::GetBlueBack()
+{
+	return m_blueBack;
+}
+int RainbowRunnerGame::GetGreenBack()
+{
+	return m_greenBack;
+}

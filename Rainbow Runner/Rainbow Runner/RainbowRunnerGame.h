@@ -21,6 +21,10 @@ public:
 	int GetPlatform6();
 	int GetPlatform7();
 
+	int GetRedBack();
+	int GetBlueBack();
+	int GetGreenBack();
+
 	const float SHRINK_LX = 238.f;
 	const float SHRINK_SX = 305.f;
 	const float SHRINK_Y = 88.f;
@@ -31,6 +35,10 @@ private:
 	int m_background;
 	int m_background2;
 	int m_player;
+
+	int m_redBack;
+	int m_blueBack;
+	int m_greenBack;
 
 	int platforms[10];
 };

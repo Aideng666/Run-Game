@@ -89,6 +89,10 @@ private:
 
 	bool jump = false;
 	bool start = false;
+
+	bool allowRed = false;
+	bool allowBlue = false;
+	bool allowYellow = false;
 };
 
 

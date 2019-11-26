@@ -214,16 +214,39 @@ void Game::KeyboardHold()
 		auto entity = scene->GetPlayer();
 		vec3 position = m_register->get<Transform>(entity).GetPosition();
 
+		auto redEnt = scene->GetRedBack();
+		auto blueEnt = scene->GetBlueBack();
+		auto greenEnt = scene->GetGreenBack();
+
 		float speed = 60.f;
 
-		if (Input::GetKey(Key::D))
+		if (Input::GetKey(Key::RightArrow))
 		{
 			m_register->get<Transform>(entity).SetPositionX(position.x + (speed * Timer::deltaTime));
 		}
-		else if (Input::GetKey(Key::A))
+		else if (Input::GetKey(Key::LeftArrow))
 		{
 			m_register->get<Transform>(entity).SetPositionX(position.x - (speed * Timer::deltaTime));
 		}			
+
+		if (Input::GetKey(Key::A) && allowBlue == false && allowYellow == false)
+		{
+			allowRed = true;
+			ECS::GetComponent<Transform>(redEnt).SetPosition(vec3(0.f, 0.f, 100.f));
+
+		}
+		if (Input::GetKey(Key::S) && allowRed == false && allowYellow == false)
+		{
+			allowBlue = true;
+			ECS::GetComponent<Transform>(blueEnt).SetPosition(vec3(0.f, 0.f, 90.f));
+
+		}
+		if (Input::GetKey(Key::D) && allowRed == false && allowBlue == false)
+		{
+			allowYellow = true;
+			ECS::GetComponent<Transform>(greenEnt).SetPosition(vec3(0.f, 0.f, 90.f));
+
+		}
 	}
 #pragma endregion
 	
@@ -249,7 +272,7 @@ void Game::KeyboardDown()
 		m_activeScene = m_scenes[1];
 	}
 	//Switches to the game scene
-	else if (m_activeScene == m_scenes[0] && Input::GetKeyDown(Key::Space))
+	else if (m_activeScene == m_scenes[0] && Input::GetKeyDown(Key::Enter))
 	{
 		SceneEditor::ResetEditor();
 
@@ -294,7 +317,7 @@ void Game::KeyboardDown()
 		m_activeScene = m_scenes[2];
 	}
 	//Switches to the rules section
-	else if (m_activeScene == m_scenes[1] && Input::GetKeyDown(Key::Space))
+	else if (m_activeScene == m_scenes[1] && Input::GetKeyDown(Key::Enter))
 	{
 		SceneEditor::ResetEditor();
 
@@ -324,7 +347,7 @@ void Game::KeyboardDown()
 		m_activeScene = m_scenes[1];
 	}
 	//Exits the program
-	else if (m_activeScene == m_scenes[2] && Input::GetKeyDown(Key::Space))
+	else if (m_activeScene == m_scenes[2] && Input::GetKeyDown(Key::Enter))
 	{
 		exit(1);
 	}
@@ -352,13 +375,12 @@ if (m_activeScene == m_scenes[3])
 		auto entity = scene->GetPlayer();
 		auto& animController = ECS::GetComponent<AnimationController>(entity);
 		auto& body = ECS::GetComponent<PhysicsBody>(entity);
-		auto& colour = ECS::GetComponent<RainbowRunnerGame>(entity);
 
 		vec3 position = m_register->get<Transform>(EntityIdentifier::MainPlayer()).GetPosition();
 
 		//Sets upwards vel + accel to make the sprite "jump"
 		//Changes the corresponding animation
-		if (Input::GetKeyDown(Key::W) && !jump)
+		if (Input::GetKeyDown(Key::UpArrow) && !jump)
 		{	
 			body.SetAcceleration(vec3(0.f, 85.f, 0.f));
 			body.SetVelocity(vec3(0.f, 85.f, 0.f));
@@ -379,13 +401,13 @@ if (m_activeScene == m_scenes[3])
 
 	if (m_activeScene == m_scenes[3])
 	{
-		if (Input::GetKeyDown(Key::Enter))
+		if (Input::GetKeyDown(Key::DownArrow))
 		{
 			start = true;
 		}
 	}
 	//Exits fullscreen :)
-	if (Input::GetKeyDown(Key::E))
+	if (Input::GetKeyDown(Key::Escape))
 	{
 		exit(1);
 	}
@@ -393,6 +415,35 @@ if (m_activeScene == m_scenes[3])
 
 void Game::KeyboardUp()
 {
+	RainbowRunnerGame* scene = (RainbowRunnerGame*)m_activeScene;
+	auto redEnt = scene->GetRedBack();
+	auto blueEnt = scene->GetBlueBack();
+	auto greenEnt = scene->GetGreenBack();
+
+	if (m_activeScene == m_scenes[3])
+	{
+		if (Input::GetKeyUp(Key::P))
+		{
+			PhysicsBody::SetDraw(!PhysicsBody::GetDraw());
+		}
+		if (Input::GetKeyUp(Key::A))
+		{
+			allowRed = false;
+			ECS::GetComponent<Transform>(redEnt).SetPosition(vec3(0.f, 0.f, 0.f));
+
+		}
+		if (Input::GetKeyUp(Key::S))
+		{
+			allowBlue = false;
+			ECS::GetComponent<Transform>(blueEnt).SetPosition(vec3(0.f, 0.f, 0.f));
+		}
+		if (Input::GetKeyUp(Key::D))
+		{
+			allowYellow = false;
+			ECS::GetComponent<Transform>(greenEnt).SetPosition(vec3(0.f, 0.f, 0.f));
+		}
+	}
+
 	if (Input::GetKeyUp(Key::P))
 	{
 		PhysicsBody::SetDraw(!PhysicsBody::GetDraw());
