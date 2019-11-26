@@ -58,7 +58,7 @@ void PhysicsSystem::Run(entt::registry * reg)
 						worldPosB2.m_topLeft = vec3(worldPosB2.m_bottomLeft.x, worldPosB2.m_topRight.y, 0.f);
 						break;
 					}
-
+					
 					if (body1.GetBodyType() == BodyType::BOX)
 					{
 						if (body2.GetBodyType() == BodyType::BOX)
@@ -72,7 +72,7 @@ void PhysicsSystem::Run(entt::registry * reg)
 								body1.SetVelocity(vec3(0.f, 0.f, 0.f));
 							}
 						}
-					}																						
+					}																												
 				}
 			}
 		}

@@ -1,4 +1,5 @@
 #include "RainbowRunnerGame.h"
+#include "PhysicsBody.h"
 
 RainbowRunnerGame::RainbowRunnerGame(std::string name)
 	: Scene(name)
@@ -81,6 +82,7 @@ void RainbowRunnerGame::InitScene(float windowWidth, float windowHeight)
 
 		m_player = entity;
 	}
+
 #pragma endregion
 
 #pragma region PLATFORMS

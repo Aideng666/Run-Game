@@ -352,6 +352,7 @@ if (m_activeScene == m_scenes[3])
 		auto entity = scene->GetPlayer();
 		auto& animController = ECS::GetComponent<AnimationController>(entity);
 		auto& body = ECS::GetComponent<PhysicsBody>(entity);
+		auto& colour = ECS::GetComponent<RainbowRunnerGame>(entity);
 
 		vec3 position = m_register->get<Transform>(EntityIdentifier::MainPlayer()).GetPosition();
 
