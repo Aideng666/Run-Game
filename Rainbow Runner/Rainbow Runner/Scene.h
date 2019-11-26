@@ -213,6 +213,7 @@ inline void from_json(const nlohmann::json& j, Scene& scene)
 		if (identity & EntityIdentifier::PhysicsBit())
 		{
 			reg.assign<PhysicsBody>(entity);
+
 			reg.get<PhysicsBody>(entity) = j["Scene"][std::to_string(i)]["PhysicsBody"];
 		}
 

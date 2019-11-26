@@ -1,7 +1,6 @@
 #include "Game.h"
 #include "Sprite.h"
 #include "BackEnd.h"
-#include "PhysicsSystem.h"
 
 #include <random>
 
@@ -389,7 +388,6 @@ if (m_activeScene == m_scenes[3])
 	{
 		exit(1);
 	}
-
 }
 
 void Game::KeyboardUp()

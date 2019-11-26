@@ -73,7 +73,7 @@ public:
 	//Wheel Event
 	static WheelEvent GetWheelEvent();
 
-	static void GetDesktopResolution(int& horizontal, int& vertical);
+	//static void GetDesktopResolution(int& horizontal, int& vertical);
 
 	//Setters
 	//Window Width

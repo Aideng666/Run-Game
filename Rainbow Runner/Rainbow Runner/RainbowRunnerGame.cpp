@@ -248,22 +248,22 @@ void RainbowRunnerGame::InitScene(float windowWidth, float windowHeight)
 
 		ECS::AttachComponent<Sprite>(entity);
 		ECS::AttachComponent<Transform>(entity);
-		//ECS::AttachComponent<PhysicsBody>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
 
 		std::string fileName = "YellowPlatformS.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 384, 200);
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(1000.f, -60.f, 100.f));
 
-		//auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-		//auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
 
-		//float shrinkX = SHRINK_SX;
-		//float shrinkY = ((tempSpr.GetHeight() / 2.f) + SHRINK_Y);
-		//tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY),
-			//vec2(0.f, (tempSpr.GetHeight() / SHRINK_VECSX) * 2.f),
-			//CollisionIDs::Environment(), (0x0), false);
+		float shrinkX = SHRINK_SX;
+		float shrinkY = ((tempSpr.GetHeight() / 2.f) + SHRINK_Y);
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY),
+			vec2(0.f, (tempSpr.GetHeight() / SHRINK_VECSX) * 2.f),
+			CollisionIDs::Environment(), (0x0), false);
 
-		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() /*| EntityIdentifier::PhysicsBit()*/;
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "Platform 6");
 
 		platforms[6] = entity;
