@@ -104,7 +104,7 @@ void Game::Update()
 
 	PhysicsSystem::Update(m_register);
 
-#pragma region Scrolling Background
+#pragma region Scrolling Backgrounds/Platform
 	//Scrolls the background for the game IF the active scene is the game scene
 	if (m_activeScene == m_scenes[3])
 	{		
@@ -117,9 +117,19 @@ void Game::Update()
 		vec3 position2 = m_register->get<Transform>(entity2).GetPosition();
 		int bgWidth = m_register->get<Sprite>(entity).GetWidth();
 
+		//Platforms Moving 
+		auto p1 = scene->GetPlatform1();
+		auto p2 = scene->GetPlatform2();
+		auto p3 = scene->GetPlatform3();
+		auto p4 = scene->GetPlatform4();
+		auto p5 = scene->GetPlatform5();
+		auto p6 = scene->GetPlatform6();
+		auto p7 = scene->GetPlatform7();
+
 		float bgSpeed = 100.f;
 		float platSpeed = 70.f;
 
+		//Loops the backgrounds
 		if (position.x + bgWidth <= 0)
 		{
 			position.x = position2.x + bgWidth;
@@ -133,19 +143,7 @@ void Game::Update()
 		{
 			m_register->get<Transform>(entity).SetPositionX(position.x - (bgSpeed * Timer::deltaTime));
 			m_register->get<Transform>(entity2).SetPositionX(position2.x - (bgSpeed * Timer::deltaTime));
-		}
-		///////////////////////////////////////////////////////////////////////////////////////
-		//Platforms Moving (put into one if after!!!)
-		auto p1 = scene->GetPlatform1();
-		auto p2 = scene->GetPlatform2();
-		auto p3 = scene->GetPlatform3();
-		auto p4 = scene->GetPlatform4();
-		auto p5 = scene->GetPlatform5();
-		auto p6 = scene->GetPlatform6();
-		auto p7 = scene->GetPlatform7();
-
-		if (start)
-		{
+			/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			m_register->get<Transform>(p1).SetPositionX(m_register->get<Transform>(p1).GetPosition().x - (platSpeed * Timer::deltaTime));
 			m_register->get<Transform>(p2).SetPositionX(m_register->get<Transform>(p2).GetPosition().x - (platSpeed * Timer::deltaTime));
 			m_register->get<Transform>(p3).SetPositionX(m_register->get<Transform>(p3).GetPosition().x - (platSpeed * Timer::deltaTime));
@@ -207,7 +205,7 @@ void Game::KeyboardHold()
 	int windowWidth = BackEnd::GetWindowWidth();
 
 	//Movement of the sprite
-#pragma region Movement
+#pragma region Sprites/Colour BG Movement
 	if (m_activeScene == m_scenes[3])
 	{
 		RainbowRunnerGame* scene = (RainbowRunnerGame*)m_activeScene;
@@ -229,6 +227,7 @@ void Game::KeyboardHold()
 			m_register->get<Transform>(entity).SetPositionX(position.x - (speed * Timer::deltaTime));
 		}			
 
+		//Moves the coloured backgrounds
 		if (Input::GetKey(Key::A) && allowBlue == false && allowYellow == false)
 		{
 			allowRed = true;
@@ -420,6 +419,7 @@ void Game::KeyboardUp()
 	auto blueEnt = scene->GetBlueBack();
 	auto greenEnt = scene->GetGreenBack();
 
+	//Hides the coloured backgrounds
 	if (m_activeScene == m_scenes[3])
 	{
 		if (Input::GetKeyUp(Key::P))
