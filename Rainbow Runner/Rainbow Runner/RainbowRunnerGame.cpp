@@ -269,6 +269,110 @@ void RainbowRunnerGame::InitScene(float windowWidth, float windowHeight)
 
 		platforms[6] = entity;
 	}
+	//Platform 7
+	{
+		auto entity = ECS::CreateEntity();
+
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		std::string fileName = "YellowPlatformS.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 384, 200);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(1200.f, -60.f, 100.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		float shrinkX = SHRINK_SX;
+		float shrinkY = ((tempSpr.GetHeight() / 2.f) + SHRINK_Y);
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY),
+			vec2(0.f, (tempSpr.GetHeight() / SHRINK_VECSX) * 2.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Platform 7");
+
+		platforms[7] = entity;
+	}
+	//Platform 8
+	{
+		auto entity = ECS::CreateEntity();
+
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		std::string fileName = "GreyPlatformS.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 384, 200);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(1350.f, -60.f, 100.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		float shrinkX = SHRINK_SX;
+		float shrinkY = ((tempSpr.GetHeight() / 2.f) + SHRINK_Y);
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY),
+			vec2(0.f, (tempSpr.GetHeight() / SHRINK_VECSX) * 2.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Platform 8");
+
+		platforms[8] = entity;
+	}
+	//Platform 9
+	{
+		auto entity = ECS::CreateEntity();
+
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		std::string fileName = "YellowPlatformS.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 384, 200);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(1500.f, -40.f, 100.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		float shrinkX = SHRINK_SX;
+		float shrinkY = ((tempSpr.GetHeight() / 2.f) + SHRINK_Y);
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY),
+			vec2(0.f, (tempSpr.GetHeight() / SHRINK_VECSX) * 2.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Platform 9");
+
+		platforms[9] = entity;
+	}
+	//Platform 10
+	{
+		auto entity = ECS::CreateEntity();
+
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		std::string fileName = "YellowPlatformS.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 384, 200);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(1650.f, -10.f, 100.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		float shrinkX = SHRINK_SX;
+		float shrinkY = ((tempSpr.GetHeight() / 2.f) + SHRINK_Y);
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY),
+			vec2(0.f, (tempSpr.GetHeight() / SHRINK_VECSX) * 2.f),
+			CollisionIDs::Environment(), (0x0), false);
+
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Platform 10");
+
+		platforms[10] = entity;
+	}
 #pragma endregion
 
 #pragma region Coloured Backgrounds
@@ -376,35 +480,51 @@ int RainbowRunnerGame::GetPlayer()
 	return m_player;
 }
 
-int RainbowRunnerGame::GetPlatform1()
+int RainbowRunnerGame::GetPlatformS()
 {
 	return platforms[0];
 }
 
-int RainbowRunnerGame::GetPlatform2()
+int RainbowRunnerGame::GetPlatform1()
 {
 	return platforms[1];
 }
 
-int RainbowRunnerGame::GetPlatform3()
+int RainbowRunnerGame::GetPlatform2()
 {
 	return platforms[2];
 }
-int RainbowRunnerGame::GetPlatform4()
+int RainbowRunnerGame::GetPlatform3()
 {
 	return platforms[3];
 }
-int RainbowRunnerGame::GetPlatform5()
+int RainbowRunnerGame::GetPlatform4()
 {
 	return platforms[4];
 }
-int RainbowRunnerGame::GetPlatform6()
+int RainbowRunnerGame::GetPlatform5()
 {
 	return platforms[5];
 }
-int RainbowRunnerGame::GetPlatform7()
+int RainbowRunnerGame::GetPlatform6()
 {
 	return platforms[6];
+}
+int RainbowRunnerGame::GetPlatform7()
+{
+	return platforms[7];
+}
+int RainbowRunnerGame::GetPlatform8()
+{
+	return platforms[8];
+}
+int RainbowRunnerGame::GetPlatform9()
+{
+	return platforms[9];
+}
+int RainbowRunnerGame::GetPlatform10()
+{
+	return platforms[10];
 }
 #pragma endregion
 

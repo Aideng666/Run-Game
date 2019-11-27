@@ -13,6 +13,7 @@ public:
 	int GetBackground2();
 	int GetPlayer();
 
+	int GetPlatformS();
 	int GetPlatform1();
 	int GetPlatform2();
 	int GetPlatform3();
@@ -20,6 +21,9 @@ public:
 	int GetPlatform5();
 	int GetPlatform6();
 	int GetPlatform7();
+	int GetPlatform8();
+	int GetPlatform9();
+	int GetPlatform10();
 
 	int GetRedBack();
 	int GetBlueBack();
@@ -40,5 +44,5 @@ private:
 	int m_blueBack;
 	int m_greenBack;
 
-	int platforms[10];
+	int platforms[20];
 };

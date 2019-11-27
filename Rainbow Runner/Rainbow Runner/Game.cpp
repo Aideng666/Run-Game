@@ -118,6 +118,7 @@ void Game::Update()
 		int bgWidth = m_register->get<Sprite>(entity).GetWidth();
 
 		//Platforms Moving 
+		auto pS = scene->GetPlatformS();
 		auto p1 = scene->GetPlatform1();
 		auto p2 = scene->GetPlatform2();
 		auto p3 = scene->GetPlatform3();
@@ -125,6 +126,10 @@ void Game::Update()
 		auto p5 = scene->GetPlatform5();
 		auto p6 = scene->GetPlatform6();
 		auto p7 = scene->GetPlatform7();
+		auto p8 = scene->GetPlatform8();
+		auto p9 = scene->GetPlatform9();
+		auto p10 = scene->GetPlatform10();
+
 
 		float bgSpeed = 100.f;
 		float platSpeed = 70.f;
@@ -144,6 +149,7 @@ void Game::Update()
 			m_register->get<Transform>(entity).SetPositionX(position.x - (bgSpeed * Timer::deltaTime));
 			m_register->get<Transform>(entity2).SetPositionX(position2.x - (bgSpeed * Timer::deltaTime));
 			/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			m_register->get<Transform>(pS).SetPositionX(m_register->get<Transform>(pS).GetPosition().x - (platSpeed * Timer::deltaTime));
 			m_register->get<Transform>(p1).SetPositionX(m_register->get<Transform>(p1).GetPosition().x - (platSpeed * Timer::deltaTime));
 			m_register->get<Transform>(p2).SetPositionX(m_register->get<Transform>(p2).GetPosition().x - (platSpeed * Timer::deltaTime));
 			m_register->get<Transform>(p3).SetPositionX(m_register->get<Transform>(p3).GetPosition().x - (platSpeed * Timer::deltaTime));
@@ -151,6 +157,10 @@ void Game::Update()
 			m_register->get<Transform>(p5).SetPositionX(m_register->get<Transform>(p5).GetPosition().x - (platSpeed * Timer::deltaTime));
 			m_register->get<Transform>(p6).SetPositionX(m_register->get<Transform>(p6).GetPosition().x - (platSpeed * Timer::deltaTime));
 			m_register->get<Transform>(p7).SetPositionX(m_register->get<Transform>(p7).GetPosition().x - (platSpeed * Timer::deltaTime));
+			m_register->get<Transform>(p8).SetPositionX(m_register->get<Transform>(p8).GetPosition().x - (platSpeed * Timer::deltaTime));
+			m_register->get<Transform>(p9).SetPositionX(m_register->get<Transform>(p9).GetPosition().x - (platSpeed * Timer::deltaTime));
+			m_register->get<Transform>(p10).SetPositionX(m_register->get<Transform>(p10).GetPosition().x - (platSpeed * Timer::deltaTime));
+
 		}
 	}
 #pragma endregion
@@ -442,11 +452,6 @@ void Game::KeyboardUp()
 			allowYellow = false;
 			ECS::GetComponent<Transform>(greenEnt).SetPosition(vec3(0.f, 0.f, 0.f));
 		}
-	}
-
-	if (Input::GetKeyUp(Key::P))
-	{
-		PhysicsBody::SetDraw(!PhysicsBody::GetDraw());
 	}
 
 	if (Input::GetKeyUp(Key::F1))
