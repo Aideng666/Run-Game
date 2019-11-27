@@ -33,6 +33,7 @@ public:
 	PhysicsBody() {};
 	PhysicsBody(vec2 botLeft, vec2 topRight, vec2 centerOffset, unsigned int objectSpecifier, unsigned int collidesWith, bool isDynamic = false);
 	PhysicsBody(float width, float height, vec2 centerOffset, unsigned int objectSpecifier, unsigned int collidesWith, bool isDynamic = false);
+	PhysicsBody(float width, float height, vec2 centerOffset, unsigned int objectSpecifier, unsigned int collidesWith, int colour, bool isDynamic = false);
 
 	void Update(Transform* trans, float dt);
 
@@ -67,6 +68,9 @@ public:
 
 	static bool GetDraw();
 	static void SetDraw(bool drawBodies);
+
+	int GetColour();
+	void SetColour(int colour);
 
 	void SetForce(vec3 force);
 	void SetAcceleration(vec3 accel);
@@ -126,6 +130,8 @@ private:
 	unsigned int m_bodyID;
 	unsigned int m_collideID;
 	bool m_dynamic = false;
+
+	int m_colour;
 };
 
 //Sends body TO json file

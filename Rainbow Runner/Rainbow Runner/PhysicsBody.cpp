@@ -66,6 +66,28 @@ PhysicsBody::PhysicsBody(float width, float height, vec2 centerOffset, unsigned 
 	InitBody();
 }
 
+PhysicsBody::PhysicsBody(float width, float height, vec2 centerOffset, unsigned int objectSpecifier, unsigned int collidesWith, int colour, bool isDynamic)
+{
+	m_bodyType = BodyType::BOX;
+
+	m_width = width;
+	m_height = height;
+
+	m_centerOffset = centerOffset;
+	m_bottomLeft = vec2(centerOffset.x - (width / 2.f), centerOffset.y - (height / 2.f));
+	m_bottomRight = vec2(centerOffset.x + (width / 2.f), centerOffset.y - (height / 2.f));
+	m_topLeft = vec2(centerOffset.x - (width / 2.f), centerOffset.y + (height / 2.f));
+	m_topRight = vec2(centerOffset.x + (width / 2.f), centerOffset.y + (height / 2.f));
+
+	m_collideID = collidesWith;
+	m_bodyID = objectSpecifier;
+
+	m_dynamic = isDynamic;
+	m_colour = colour;
+
+	InitBody();
+}
+
 void PhysicsBody::Update(Transform * trans, float dt)
 {
 	vec3 transPosition = trans->GetPosition();
@@ -249,6 +271,16 @@ bool PhysicsBody::GetDraw()
 void PhysicsBody::SetDraw(bool drawBodies)
 {
 	m_drawBodies = drawBodies;
+}
+
+int PhysicsBody::GetColour()
+{
+	return m_colour;
+}
+
+void PhysicsBody::SetColour(int colour)
+{
+	m_colour = colour;
 }
 
 void PhysicsBody::SetForce(vec3 force)

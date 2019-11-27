@@ -4,7 +4,6 @@
 
 #include <random>
 
-
 Game::~Game()
 {
 	//If window isn't equal to nullptr
@@ -241,23 +240,27 @@ void Game::KeyboardHold()
 		if (Input::GetKey(Key::A) && allowBlue == false && allowYellow == false)
 		{
 			allowRed = true;
+			ECS::GetComponent<PhysicsBody>(EntityIdentifier::MainPlayer()).SetColour(3);
 			ECS::GetComponent<Transform>(redEnt).SetPosition(vec3(0.f, 0.f, 100.f));
 
 		}
 		if (Input::GetKey(Key::S) && allowRed == false && allowYellow == false)
 		{
 			allowBlue = true;
+			ECS::GetComponent<PhysicsBody>(EntityIdentifier::MainPlayer()).SetColour(2);
 			ECS::GetComponent<Transform>(blueEnt).SetPosition(vec3(0.f, 0.f, 90.f));
 
 		}
 		if (Input::GetKey(Key::D) && allowRed == false && allowBlue == false)
 		{
 			allowYellow = true;
+			ECS::GetComponent<PhysicsBody>(EntityIdentifier::MainPlayer()).SetColour(1);
 			ECS::GetComponent<Transform>(greenEnt).SetPosition(vec3(0.f, 0.f, 90.f));
 
 		}
 	}
 #pragma endregion
+
 	
 }
 
@@ -428,6 +431,7 @@ void Game::KeyboardUp()
 	auto redEnt = scene->GetRedBack();
 	auto blueEnt = scene->GetBlueBack();
 	auto greenEnt = scene->GetGreenBack();
+	auto entity = scene->GetPlayer();
 
 	//Hides the coloured backgrounds
 	if (m_activeScene == m_scenes[3])
@@ -439,17 +443,20 @@ void Game::KeyboardUp()
 		if (Input::GetKeyUp(Key::A))
 		{
 			allowRed = false;
+			ECS::GetComponent<PhysicsBody>(entity).SetColour(0);
 			ECS::GetComponent<Transform>(redEnt).SetPosition(vec3(0.f, 0.f, 0.f));
 
 		}
 		if (Input::GetKeyUp(Key::S))
 		{
 			allowBlue = false;
+			ECS::GetComponent<PhysicsBody>(entity).SetColour(0);
 			ECS::GetComponent<Transform>(blueEnt).SetPosition(vec3(0.f, 0.f, 0.f));
 		}
 		if (Input::GetKeyUp(Key::D))
 		{
 			allowYellow = false;
+			ECS::GetComponent<PhysicsBody>(entity).SetColour(0);
 			ECS::GetComponent<Transform>(greenEnt).SetPosition(vec3(0.f, 0.f, 0.f));
 		}
 	}
