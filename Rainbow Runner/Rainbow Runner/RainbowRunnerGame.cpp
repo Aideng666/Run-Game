@@ -279,7 +279,7 @@ void RainbowRunnerGame::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<Sprite>(entity);
 		ECS::AttachComponent<Transform>(entity);
 
-		std::string fileName = "RedBackground.png";
+		std::string fileName = "RedBackground2.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 384, 200);
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 0.f));
 
@@ -295,7 +295,7 @@ void RainbowRunnerGame::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<Sprite>(entity);
 		ECS::AttachComponent<Transform>(entity);
 
-		std::string fileName = "BlueBackground.png";
+		std::string fileName = "BlueBackground2.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 384, 200);
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 0.f));
 
@@ -311,7 +311,7 @@ void RainbowRunnerGame::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<Sprite>(entity);
 		ECS::AttachComponent<Transform>(entity);
 
-		std::string fileName = "GreenBackground.png";
+		std::string fileName = "GreenBackground2.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 384, 200);
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(0.f, 0.f, 0.f));
 
