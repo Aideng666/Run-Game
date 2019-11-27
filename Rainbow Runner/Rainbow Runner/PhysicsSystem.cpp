@@ -66,12 +66,16 @@ void PhysicsSystem::Run(entt::registry * reg)
 							//Perform BOX-BOX collision
 							if (BoxBoxCollision(std::pair<PhysicsBody&, Box>(body1, worldPosB), std::pair<PhysicsBody&, Box>(body2, worldPosB2)))
 							{
-								if (body1.GetColour() == body2.GetColour() || body2.GetColour() == 0) 
+								if (body1.GetColour() == body2.GetColour() || body2.GetColour() == 0 || body2.GetColour() == 4)
 								{
 									trans1.SetPosition(trans1.GetPosition() + (-body1.GetVelocity() * (Timer::deltaTime)));
 
 									body1.SetAcceleration(vec3(0.f, 0.f, 0.f));
 									body1.SetVelocity(vec3(0.f, 0.f, 0.f));
+									if (body2.GetColour() == 4)
+									{
+										body1.SetColour(4);
+									}
 								}							
 							}
 						}

@@ -24,6 +24,9 @@ public:
 	int GetPlatform8();
 	int GetPlatform9();
 	int GetPlatform10();
+	int GetPlatform11();
+	int GetPlatform12();
+
 
 	int GetRedBack();
 	int GetBlueBack();

@@ -37,7 +37,7 @@ void Game::InitGame()
 
 	//Initialize the current scene (starting screen)
 	m_name = menuName;
-	m_clearColor = vec4(0.15f, 0.33f, 0.58f, 1.f);
+	m_clearColor = vec4(0.0f, 0.0f, 0.0f, 1.f);
 
 	//Initializes the backend
 	BackEnd::InitBackEnd(m_name);
@@ -128,7 +128,8 @@ void Game::Update()
 		auto p8 = scene->GetPlatform8();
 		auto p9 = scene->GetPlatform9();
 		auto p10 = scene->GetPlatform10();
-
+		auto p11 = scene->GetPlatform11();
+		auto p12 = scene->GetPlatform12();
 
 		float bgSpeed = 100.f;
 		float platSpeed = 70.f;
@@ -159,8 +160,25 @@ void Game::Update()
 			m_register->get<Transform>(p8).SetPositionX(m_register->get<Transform>(p8).GetPosition().x - (platSpeed * Timer::deltaTime));
 			m_register->get<Transform>(p9).SetPositionX(m_register->get<Transform>(p9).GetPosition().x - (platSpeed * Timer::deltaTime));
 			m_register->get<Transform>(p10).SetPositionX(m_register->get<Transform>(p10).GetPosition().x - (platSpeed * Timer::deltaTime));
+			m_register->get<Transform>(p11).SetPositionX(m_register->get<Transform>(p11).GetPosition().x - (platSpeed * Timer::deltaTime));
+			m_register->get<Transform>(p12).SetPositionX(m_register->get<Transform>(p12).GetPosition().x - (platSpeed * Timer::deltaTime));
 
 		}
+		if (m_register->get<Transform>(EntityIdentifier::MainPlayer()).GetPosition().y < -140)
+		{
+			SceneEditor::ResetEditor();
+			m_activeScene->Unload();
+			m_scenes[0]->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+			m_register = m_scenes[0]->GetScene();
+			m_activeScene = m_scenes[0];
+			start = false;
+		}
+
+		if (ECS::GetComponent<PhysicsBody>(EntityIdentifier::MainPlayer()).GetColour() == 4)
+		{
+			start = false;
+		}
+
 	}
 #pragma endregion
 
@@ -225,7 +243,7 @@ void Game::KeyboardHold()
 		auto blueEnt = scene->GetBlueBack();
 		auto greenEnt = scene->GetGreenBack();
 
-		float speed = 60.f;
+		float speed = 100.f;
 
 		if (Input::GetKey(Key::RightArrow))
 		{
@@ -242,25 +260,21 @@ void Game::KeyboardHold()
 			allowRed = true;
 			ECS::GetComponent<PhysicsBody>(EntityIdentifier::MainPlayer()).SetColour(3);
 			ECS::GetComponent<Transform>(redEnt).SetPosition(vec3(0.f, 0.f, 100.f));
-
 		}
 		if (Input::GetKey(Key::S) && allowRed == false && allowYellow == false)
 		{
 			allowBlue = true;
 			ECS::GetComponent<PhysicsBody>(EntityIdentifier::MainPlayer()).SetColour(2);
 			ECS::GetComponent<Transform>(blueEnt).SetPosition(vec3(0.f, 0.f, 90.f));
-
 		}
 		if (Input::GetKey(Key::D) && allowRed == false && allowBlue == false)
 		{
 			allowYellow = true;
 			ECS::GetComponent<PhysicsBody>(EntityIdentifier::MainPlayer()).SetColour(1);
 			ECS::GetComponent<Transform>(greenEnt).SetPosition(vec3(0.f, 0.f, 90.f));
-
 		}
 	}
 #pragma endregion
-
 	
 }
 
@@ -284,7 +298,7 @@ void Game::KeyboardDown()
 		m_activeScene = m_scenes[1];
 	}
 	//Switches to the game scene
-	else if (m_activeScene == m_scenes[0] && Input::GetKeyDown(Key::Enter))
+	else if (m_activeScene == m_scenes[0] && Input::GetKeyDown(Key::Space))
 	{
 		SceneEditor::ResetEditor();
 
@@ -329,7 +343,7 @@ void Game::KeyboardDown()
 		m_activeScene = m_scenes[2];
 	}
 	//Switches to the rules section
-	else if (m_activeScene == m_scenes[1] && Input::GetKeyDown(Key::Enter))
+	else if (m_activeScene == m_scenes[1] && Input::GetKeyDown(Key::Space))
 	{
 		SceneEditor::ResetEditor();
 
@@ -359,7 +373,7 @@ void Game::KeyboardDown()
 		m_activeScene = m_scenes[1];
 	}
 	//Exits the program
-	else if (m_activeScene == m_scenes[2] && Input::GetKeyDown(Key::Enter))
+	else if (m_activeScene == m_scenes[2] && Input::GetKeyDown(Key::Space))
 	{
 		exit(1);
 	}
@@ -418,7 +432,7 @@ if (m_activeScene == m_scenes[3])
 			start = true;
 		}
 	}
-	//Exits fullscreen :)
+	//Exits fullscreen 
 	if (Input::GetKeyDown(Key::Escape))
 	{
 		exit(1);
