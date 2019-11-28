@@ -165,6 +165,11 @@ void Game::Update()
 
 		}
 		
+		if (m_register->get<PhysicsBody>(EntityIdentifier::MainPlayer()).GetColour() == 4)
+		{
+			start = false;
+		}
+
 		if (m_register->get<Transform>(EntityIdentifier::MainPlayer()).GetPosition().y <= -140)
 		{
 			SceneEditor::ResetEditor();

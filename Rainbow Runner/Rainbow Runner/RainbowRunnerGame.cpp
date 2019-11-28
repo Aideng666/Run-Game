@@ -403,17 +403,17 @@ void RainbowRunnerGame::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<Transform>(entity);
 		ECS::AttachComponent<PhysicsBody>(entity);
 
-		std::string fileName = "GreyPlatformL.png";
+		std::string fileName = "FinalPlatform.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 384, 200);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(2300.f, -50.f, 100.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(2200.f, -50.f, 100.f));
 
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
 
-		float shrinkX = SHRINK_LX;
+		float shrinkX = SHRINK_SX;
 		float shrinkY = ((tempSpr.GetHeight() / 2.f) + SHRINK_Y);
 		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY),
-			vec2(0.f, (tempSpr.GetHeight() / SHRINK_VECLX) * 2.f),
+			vec2(0.f, (tempSpr.GetHeight() / SHRINK_VECSX) * 2.f),
 			CollisionIDs::Environment(), (0x0), 4, false);
 
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
