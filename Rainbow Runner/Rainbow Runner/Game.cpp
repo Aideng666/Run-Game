@@ -164,7 +164,8 @@ void Game::Update()
 			m_register->get<Transform>(p12).SetPositionX(m_register->get<Transform>(p12).GetPosition().x - (platSpeed * Timer::deltaTime));
 
 		}
-		if (m_register->get<Transform>(EntityIdentifier::MainPlayer()).GetPosition().y < -140)
+		
+		if (m_register->get<Transform>(EntityIdentifier::MainPlayer()).GetPosition().y <= -140)
 		{
 			SceneEditor::ResetEditor();
 			m_activeScene->Unload();
@@ -172,13 +173,7 @@ void Game::Update()
 			m_register = m_scenes[0]->GetScene();
 			m_activeScene = m_scenes[0];
 			start = false;
-		}
-
-		if (ECS::GetComponent<PhysicsBody>(EntityIdentifier::MainPlayer()).GetColour() == 4)
-		{
-			start = false;
-		}
-
+		}	
 	}
 #pragma endregion
 
