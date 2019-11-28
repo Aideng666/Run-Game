@@ -64,11 +64,11 @@ void RainbowRunnerGame::InitScene(float windowWidth, float windowHeight)
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
 
-		float shrinkX = tempSpr.GetWidth() / 5.f;
-		float shrinkY = tempSpr.GetWidth() / 2.f;
+		float shrinkX = tempSpr.GetWidth() / 2.f - 1;
+		float shrinkY = tempSpr.GetWidth() / 1.f + 10;
 
 		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY),
-			vec2(0.f, 0.f),
+			vec2(0.f, -10.f),
 			CollisionIDs::Player(), (CollisionIDs::Enemy() | CollisionIDs::Environment()), true);
 
 		tempPhsBody.SetFriction(0.15f);

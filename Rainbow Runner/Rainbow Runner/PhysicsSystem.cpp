@@ -47,7 +47,7 @@ void PhysicsSystem::Run(entt::registry * reg)
 					auto& body2 = view.get<PhysicsBody>(entity2);
 
 					Box worldPosB2;
-
+					
 					switch (body2.GetBodyType())
 					{
 					case BodyType::BOX:
@@ -76,8 +76,8 @@ void PhysicsSystem::Run(entt::registry * reg)
 									{
 										body1.SetColour(4);
 									}
-								}							
-							}
+								}									
+							}	
 						}
 					}																												
 				}
