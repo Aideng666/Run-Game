@@ -130,6 +130,7 @@ void Game::Update()
 		auto p10 = scene->GetPlatform10();
 		auto p11 = scene->GetPlatform11();
 		auto p12 = scene->GetPlatform12();
+		auto p13 = scene->GetPlatform13();
 
 		float bgSpeed = 100.f;
 		float platSpeed = 70.f;
@@ -159,9 +160,11 @@ void Game::Update()
 			m_register->get<Transform>(p7).SetPositionX(m_register->get<Transform>(p7).GetPosition().x - (platSpeed * Timer::deltaTime));
 			m_register->get<Transform>(p8).SetPositionX(m_register->get<Transform>(p8).GetPosition().x - (platSpeed * Timer::deltaTime));
 			m_register->get<Transform>(p9).SetPositionX(m_register->get<Transform>(p9).GetPosition().x - (platSpeed * Timer::deltaTime));
-			m_register->get<Transform>(p10).SetPositionX(m_register->get<Transform>(p10).GetPosition().x - (platSpeed * Timer::deltaTime));
-			m_register->get<Transform>(p11).SetPositionX(m_register->get<Transform>(p11).GetPosition().x - (platSpeed * Timer::deltaTime));
-			m_register->get<Transform>(p12).SetPositionX(m_register->get<Transform>(p12).GetPosition().x - (platSpeed * Timer::deltaTime));
+			//m_register->get<Transform>(p10).SetPositionX(m_register->get<Transform>(p10).GetPosition().x - (platSpeed * Timer::deltaTime));
+			//m_register->get<Transform>(p11).SetPositionX(m_register->get<Transform>(p11).GetPosition().x - (platSpeed * Timer::deltaTime));
+			//m_register->get<Transform>(p12).SetPositionX(m_register->get<Transform>(p12).GetPosition().x - (platSpeed * Timer::deltaTime));
+			//m_register->get<Transform>(p13).SetPositionX(m_register->get<Transform>(p13).GetPosition().x - (platSpeed * Timer::deltaTime));
+
 		}		
 	}
 #pragma endregion
@@ -184,6 +187,7 @@ void Game::Update()
 			m_activeScene = m_scenes[0];
 			start = false;
 			begin = false;
+			sndPlaySound("Lose.wav", SND_FILENAME | SND_ASYNC);
 		}
 	}
 #pragma endregion
@@ -302,6 +306,8 @@ void Game::KeyboardDown()
 		m_scenes[1]->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 		m_register = m_scenes[1]->GetScene();
 		m_activeScene = m_scenes[1];
+
+		sndPlaySound("MenuSwitch.wav", SND_FILENAME | SND_ASYNC);
 	}
 	//Switches to the game scene
 	else if (m_activeScene == m_scenes[0] && Input::GetKeyDown(Key::Space))
@@ -317,6 +323,8 @@ void Game::KeyboardDown()
 		m_scenes[3]->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 		m_register = m_scenes[3]->GetScene();
 		m_activeScene = m_scenes[3];
+
+		//sndPlaySound("Run2.wav", SND_FILENAME | SND_ASYNC | SND_LOOP);
 	}
 	//Swtiches back IF active scene is game screen to Main Menu
 	else if (m_activeScene == m_scenes[1] && Input::GetKeyDown(Key::UpArrow))
@@ -332,6 +340,8 @@ void Game::KeyboardDown()
 		m_scenes[0]->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 		m_register = m_scenes[0]->GetScene();
 		m_activeScene = m_scenes[0];
+
+		sndPlaySound("MenuSwitch.wav", SND_FILENAME | SND_ASYNC);
 	}
 	//Switches from rules to exit button
 	else if (m_activeScene == m_scenes[1] && Input::GetKeyDown(Key::DownArrow))
@@ -347,6 +357,8 @@ void Game::KeyboardDown()
 		m_scenes[2]->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 		m_register = m_scenes[2]->GetScene();
 		m_activeScene = m_scenes[2];
+
+		sndPlaySound("MenuSwitch.wav", SND_FILENAME | SND_ASYNC);
 	}
 	//Switches to the rules section
 	else if (m_activeScene == m_scenes[1] && Input::GetKeyDown(Key::Space))
@@ -362,6 +374,8 @@ void Game::KeyboardDown()
 		m_scenes[4]->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 		m_register = m_scenes[4]->GetScene();
 		m_activeScene = m_scenes[4];
+
+		sndPlaySound("MenuSelection.wav", SND_FILENAME | SND_ASYNC);
 	}
 	//Swithces from exit to rules button
 	else if (m_activeScene == m_scenes[2] && Input::GetKeyDown(Key::UpArrow))
@@ -377,6 +391,8 @@ void Game::KeyboardDown()
 		m_scenes[1]->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 		m_register = m_scenes[1]->GetScene();
 		m_activeScene = m_scenes[1];
+
+		sndPlaySound("MenuSwitch.wav", SND_FILENAME | SND_ASYNC);
 	}
 	//Exits the program
 	else if (m_activeScene == m_scenes[2] && Input::GetKeyDown(Key::Space))
@@ -397,6 +413,8 @@ void Game::KeyboardDown()
 		m_scenes[0]->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
 		m_register = m_scenes[0]->GetScene();
 		m_activeScene = m_scenes[0];
+
+		sndPlaySound("MenuSelection.wav", SND_FILENAME | SND_ASYNC);
 	}
 #pragma endregion
 

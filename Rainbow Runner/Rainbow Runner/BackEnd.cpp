@@ -29,8 +29,6 @@ void BackEnd::InitBackEnd(std::string name)
 	EffectManager::InitEffectManager(unsigned(m_windowWidth), unsigned(m_windowHeight));
 	//Initializes the rendering system
 	RenderingSystem::Init();
-
-	sndPlaySound("Run2.wav", SND_FILENAME | SND_ASYNC | SND_LOOP);
 }
 
 void BackEnd::InitGLEW()
