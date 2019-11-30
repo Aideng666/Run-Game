@@ -27,16 +27,15 @@ public:
 	int GetPlatform11();
 	int GetPlatform12();
 
-
 	int GetRedBack();
 	int GetBlueBack();
 	int GetGreenBack();
 
 	const float SHRINK_LX = 238.f;
 	const float SHRINK_SX = 305.f;
-	const float SHRINK_Y = 88.f;
-	const float SHRINK_VECLX = 256.f;
-	const float SHRINK_VECSX = 512.f;
+	const float SHRINK_Y = 98.f;
+	const float SHRINK_VECLX = 64.f;
+	const float SHRINK_VECSX = 64.f;
 
 private:
 	int m_background;

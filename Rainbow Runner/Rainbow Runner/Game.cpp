@@ -162,12 +162,17 @@ void Game::Update()
 			m_register->get<Transform>(p10).SetPositionX(m_register->get<Transform>(p10).GetPosition().x - (platSpeed * Timer::deltaTime));
 			m_register->get<Transform>(p11).SetPositionX(m_register->get<Transform>(p11).GetPosition().x - (platSpeed * Timer::deltaTime));
 			m_register->get<Transform>(p12).SetPositionX(m_register->get<Transform>(p12).GetPosition().x - (platSpeed * Timer::deltaTime));
-
-		}
-		
-		if (m_register->get<PhysicsBody>(EntityIdentifier::MainPlayer()).GetColour() == 4)
+		}		
+	}
+#pragma endregion
+	
+#pragma region Death Logic
+	if (m_activeScene == m_scenes[3])
+	{
+		if (m_register->get<PhysicsBody>(EntityIdentifier::MainPlayer()).GetColour() == 4 && !begin)
 		{
 			start = false;
+			begin = true;
 		}
 
 		if (m_register->get<Transform>(EntityIdentifier::MainPlayer()).GetPosition().y <= -140)
@@ -178,7 +183,8 @@ void Game::Update()
 			m_register = m_scenes[0]->GetScene();
 			m_activeScene = m_scenes[0];
 			start = false;
-		}	
+			begin = false;
+		}
 	}
 #pragma endregion
 

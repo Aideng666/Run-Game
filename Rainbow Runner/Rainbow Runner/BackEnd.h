@@ -11,6 +11,10 @@
 #include "AnimationSystem.h"
 #include "PhysicsSystem.h"
 
+#include <Mmsystem.h>
+#include <mciapi.h>
+#pragma comment(lib, "Winmm.lib")
+
 //Mouse Motion event
 typedef SDL_MouseMotionEvent MotionEvent;
 //Mouse Button event

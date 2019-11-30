@@ -94,7 +94,7 @@ private:
 	bool allowBlue = false;
 	bool allowYellow = false;
 
-	bool level2 = false;
+	bool begin = false;
 };
 
 

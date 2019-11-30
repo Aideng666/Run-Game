@@ -83,6 +83,7 @@ void RainbowRunnerGame::InitScene(float windowWidth, float windowHeight)
 	}
 
 	//Platforms
+	//Level 1
 	//Starting Platform
 	{
 		auto entity = ECS::CreateEntity();
@@ -145,7 +146,7 @@ void RainbowRunnerGame::InitScene(float windowWidth, float windowHeight)
 
 		std::string fileName = "GreyPlatformS.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 384, 200);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(250.f, -40.f, 100.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(270.f, -40.f, 100.f));
 
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
@@ -171,7 +172,7 @@ void RainbowRunnerGame::InitScene(float windowWidth, float windowHeight)
 
 		std::string fileName = "GreyPlatformS.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 384, 200);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(380.f, -40.f, 100.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(410.f, -40.f, 100.f));
 
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
@@ -353,7 +354,7 @@ void RainbowRunnerGame::InitScene(float windowWidth, float windowHeight)
 
 		std::string fileName = "YellowPlatformS.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 384, 200);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(1650.f, -10.f, 100.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(1680.f, -10.f, 100.f));
 
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
@@ -379,7 +380,7 @@ void RainbowRunnerGame::InitScene(float windowWidth, float windowHeight)
 
 		std::string fileName = "RedPlatformL.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 384, 200);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(1850.f, 20.f, 100.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(1890.f, 20.f, 100.f));
 
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
@@ -421,6 +422,8 @@ void RainbowRunnerGame::InitScene(float windowWidth, float windowHeight)
 
 		platforms[12] = entity;
 	}
+
+	//Level 2
 
 #pragma region Coloured Backgrounds
 	//Red Colour Back
