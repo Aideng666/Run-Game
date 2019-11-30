@@ -7,6 +7,7 @@
 #include "RulesScene.h"
 #include "ExitScene.h"
 #include "RulesSection.h"
+#include "GameOver.h"
 
 //Our main class for running our game
 class Game

@@ -27,6 +27,15 @@ public:
 	int GetPlatform11();
 	int GetPlatform12();
 	int GetPlatform13();
+	int GetPlatform14();
+	int GetPlatform15();
+	int GetPlatform16();
+	int GetPlatform17();
+	int GetPlatform18();
+
+	int GetPlatform19();
+
+	int GetStart();
 
 	int GetRedBack();
 	int GetBlueBack();
@@ -47,5 +56,7 @@ private:
 	int m_blueBack;
 	int m_greenBack;
 
-	int platforms[20];
+	int m_start;
+
+	int platforms[30];
 };

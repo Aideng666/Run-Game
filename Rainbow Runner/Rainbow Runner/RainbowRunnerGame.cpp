@@ -59,7 +59,7 @@ void RainbowRunnerGame::InitScene(float windowWidth, float windowHeight)
 		auto &anim = animController.GetAnimation(0);
 
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 35, 50, true, &animController);
-		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-130.f, 10.f, 100.f));
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(-130.f, 15.f, 100.f));
 
 		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
@@ -80,6 +80,24 @@ void RainbowRunnerGame::InitScene(float windowWidth, float windowHeight)
 		ECS::SetIsMainPlayer(entity, true);
 
 		m_player = entity;
+	}
+
+	//Start Signal
+	{
+		auto entity = ECS::CreateEntity();
+
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+
+		std::string fileName = "Start.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 216, 49);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(10.f, 52.f, 100.f));
+
+
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Down to Start");
+
+		m_start = entity;
 	}
 
 	//Platforms
@@ -248,7 +266,7 @@ void RainbowRunnerGame::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<Transform>(entity);
 		ECS::AttachComponent<PhysicsBody>(entity);
 
-		std::string fileName = "GreyPlatformS.png";
+		std::string fileName = "BluePlatformS.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 384, 200);
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(1020.f, -30.f, 100.f));
 
@@ -259,7 +277,7 @@ void RainbowRunnerGame::InitScene(float windowWidth, float windowHeight)
 		float shrinkY = ((tempSpr.GetHeight() / 2.f) + SHRINK_Y);
 		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY),
 			vec2(0.f, (tempSpr.GetHeight() / SHRINK_VECSX) * 2.f),
-			CollisionIDs::Environment(), (0x0), 0, false);
+			CollisionIDs::Environment(), (0x0), 2, false);
 
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "Platform 6");
@@ -300,7 +318,7 @@ void RainbowRunnerGame::InitScene(float windowWidth, float windowHeight)
 		ECS::AttachComponent<Transform>(entity);
 		ECS::AttachComponent<PhysicsBody>(entity);
 
-		std::string fileName = "GreyPlatformS.png";
+		std::string fileName = "BluePlatformS.png";
 		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 384, 200);
 		ECS::GetComponent<Transform>(entity).SetPosition(vec3(1340.f, -17.f, 100.f));
 
@@ -344,112 +362,268 @@ void RainbowRunnerGame::InitScene(float windowWidth, float windowHeight)
 
 		platforms[9] = entity;
 	}
-	////Platform 10
-	//{
-	//	auto entity = ECS::CreateEntity();
+	//Platform 10
+	{
+		auto entity = ECS::CreateEntity();
 
-	//	ECS::AttachComponent<Sprite>(entity);
-	//	ECS::AttachComponent<Transform>(entity);
-	//	ECS::AttachComponent<PhysicsBody>(entity);
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
 
-	//	std::string fileName = "YellowPlatformS.png";
-	//	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 384, 200);
-	//	ECS::GetComponent<Transform>(entity).SetPosition(vec3(1680.f, 3.f, 100.f));
+		std::string fileName = "BluePlatformS.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 384, 200);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(1680.f, 0.f, 100.f));
 
-	//	auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-	//	auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
 
-	//	float shrinkX = SHRINK_SX;
-	//	float shrinkY = ((tempSpr.GetHeight() / 2.f) + SHRINK_Y);
-	//	tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY),
-	//		vec2(0.f, (tempSpr.GetHeight() / SHRINK_VECSX) * 2.f),
-	//		CollisionIDs::Environment(), (0x0), 1, false);
+		float shrinkX = SHRINK_SX;
+		float shrinkY = ((tempSpr.GetHeight() / 2.f) + SHRINK_Y);
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY),
+			vec2(0.f, (tempSpr.GetHeight() / SHRINK_VECSX) * 2.f),
+			CollisionIDs::Environment(), (0x0), 0, false);
 
-	//	unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
-	//	ECS::SetUpIdentifier(entity, bitHolder, "Platform 10");
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Platform 10");
 
-	//	platforms[10] = entity;
-	//}
-	////Platform 11
-	//{
-	//	auto entity = ECS::CreateEntity();
+		platforms[10] = entity;
+	}
+	//Platform 11
+	{
+		auto entity = ECS::CreateEntity();
 
-	//	ECS::AttachComponent<Sprite>(entity);
-	//	ECS::AttachComponent<Transform>(entity);
-	//	ECS::AttachComponent<PhysicsBody>(entity);
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
 
-	//	std::string fileName = "RedPlatformL.png";
-	//	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 384, 200);
-	//	ECS::GetComponent<Transform>(entity).SetPosition(vec3(1850.f, 30.f, 100.f));
+		std::string fileName = "GreyPlatformL.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 384, 200);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(1880.f, 15.f, 100.f));
 
-	//	auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-	//	auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
 
-	//	float shrinkX = SHRINK_LX;
-	//	float shrinkY = ((tempSpr.GetHeight() / 2.f) + SHRINK_Y);
-	//	tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY),
-	//		vec2(0.f, (tempSpr.GetHeight() / SHRINK_VECLX) * 2.f),
-	//		CollisionIDs::Environment(), (0x0), 3, false);
+		float shrinkX = SHRINK_LX;
+		float shrinkY = ((tempSpr.GetHeight() / 2.f) + SHRINK_Y);
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY),
+			vec2(0.f, (tempSpr.GetHeight() / SHRINK_VECLX) * 2.f),
+			CollisionIDs::Environment(), (0x0), 0, false);
 
-	//	unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
-	//	ECS::SetUpIdentifier(entity, bitHolder, "Platform 11");
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Platform 11");
 
-	//	platforms[11] = entity;
-	//}
+		platforms[11] = entity;
+	}
 	////Platform 12
-	//{
-	//	auto entity = ECS::CreateEntity();
+	{
+		auto entity = ECS::CreateEntity();
 
-	//	ECS::AttachComponent<Sprite>(entity);
-	//	ECS::AttachComponent<Transform>(entity);
-	//	ECS::AttachComponent<PhysicsBody>(entity);
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
 
-	//	std::string fileName = "YellowPlatformS.png";
-	//	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 384, 200);
-	//	ECS::GetComponent<Transform>(entity).SetPosition(vec3(2080.f, 30.f, 100.f));
+		std::string fileName = "BluePlatformS.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 384, 200);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(2080.f, 15.f, 100.f));
 
-	//	auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-	//	auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
 
-	//	float shrinkX = SHRINK_SX;
-	//	float shrinkY = ((tempSpr.GetHeight() / 2.f) + SHRINK_Y);
-	//	tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY),
-	//		vec2(0.f, (tempSpr.GetHeight() / SHRINK_VECSX) * 2.f),
-	//		CollisionIDs::Environment(), (0x0), 1, false);
+		float shrinkX = SHRINK_LX;
+		float shrinkY = ((tempSpr.GetHeight() / 2.f) + SHRINK_Y);
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY),
+			vec2(0.f, (tempSpr.GetHeight() / SHRINK_VECLX) * 2.f),
+			CollisionIDs::Environment(), (0x0), 2, false);
 
-	//	unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
-	//	ECS::SetUpIdentifier(entity, bitHolder, "Platform 12");
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Platform 12");
 
-	//	platforms[12] = entity;
-	//}
-	////Platform 13
-	//{
-	//	auto entity = ECS::CreateEntity();
+		platforms[12] = entity;
+	}
+	//Platform 13
+	{
+		auto entity = ECS::CreateEntity();
 
-	//	ECS::AttachComponent<Sprite>(entity);
-	//	ECS::AttachComponent<Transform>(entity);
-	//	ECS::AttachComponent<PhysicsBody>(entity);
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
 
-	//	std::string fileName = "RedPlatformS.png";
-	//	ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 384, 200);
-	//	ECS::GetComponent<Transform>(entity).SetPosition(vec3(2270.f, 10.f, 100.f));
+		std::string fileName = "YellowPlatformL.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 384, 200);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(2300.f, -70.f, 100.f));
 
-	//	auto& tempSpr = ECS::GetComponent<Sprite>(entity);
-	//	auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
 
-	//	float shrinkX = SHRINK_SX;
-	//	float shrinkY = ((tempSpr.GetHeight() / 2.f) + SHRINK_Y);
-	//	tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY),
-	//		vec2(0.f, (tempSpr.GetHeight() / SHRINK_VECSX) * 2.f),
-	//		CollisionIDs::Environment(), (0x0), 3, false);
+		float shrinkX = SHRINK_SX;
+		float shrinkY = ((tempSpr.GetHeight() / 2.f) + SHRINK_Y);
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY),
+			vec2(0.f, (tempSpr.GetHeight() / SHRINK_VECSX) * 2.f),
+			CollisionIDs::Environment(), (0x0), 1, false);
 
-	//	unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
-	//	ECS::SetUpIdentifier(entity, bitHolder, "Platform 13");
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Platform 13");
 
-	//	platforms[13] = entity;
-	//}
+		platforms[13] = entity;
+	}
+	//Platform 14
+	{
+		auto entity = ECS::CreateEntity();
 
-	//Level 2
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		std::string fileName = "GreyPlatformS.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 384, 200);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(2500.f, -55.f, 100.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		float shrinkX = SHRINK_SX;
+		float shrinkY = ((tempSpr.GetHeight() / 2.f) + SHRINK_Y);
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY),
+			vec2(0.f, (tempSpr.GetHeight() / SHRINK_VECSX) * 2.f),
+			CollisionIDs::Environment(), (0x0), 0, false);
+
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Platform 14");
+
+		platforms[14] = entity;
+	}
+	//Platform 15
+	{
+		auto entity = ECS::CreateEntity();
+
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		std::string fileName = "YellowPlatformS.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 384, 200);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(2670.f, -45.f, 100.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		float shrinkX = SHRINK_SX;
+		float shrinkY = ((tempSpr.GetHeight() / 2.f) + SHRINK_Y);
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY),
+			vec2(0.f, (tempSpr.GetHeight() / SHRINK_VECSX) * 2.f),
+			CollisionIDs::Environment(), (0x0), 1, false);
+
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Platform 15");
+
+		platforms[15] = entity;
+	}
+	//Platform 16
+	{
+		auto entity = ECS::CreateEntity();
+
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		std::string fileName = "BluePlatformS.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 384, 200);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(2830.f, -30.f, 100.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		float shrinkX = SHRINK_SX;
+		float shrinkY = ((tempSpr.GetHeight() / 2.f) + SHRINK_Y);
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY),
+			vec2(0.f, (tempSpr.GetHeight() / SHRINK_VECSX) * 2.f),
+			CollisionIDs::Environment(), (0x0), 2, false);
+
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Platform 16");
+
+		platforms[16] = entity;
+	}
+	//Platform 17
+	{
+		auto entity = ECS::CreateEntity();
+
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		std::string fileName = "YellowPlatformS.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 384, 200);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(3000.f, -27.f, 100.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		float shrinkX = SHRINK_SX;
+		float shrinkY = ((tempSpr.GetHeight() / 2.f) + SHRINK_Y);
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY),
+			vec2(0.f, (tempSpr.GetHeight() / SHRINK_VECSX) * 2.f),
+			CollisionIDs::Environment(), (0x0), 1, false);
+
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Platform 17");
+
+		platforms[17] = entity;
+	}
+	//Platform 18
+	{
+		auto entity = ECS::CreateEntity();
+
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		std::string fileName = "RedPlatformL.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 384, 200);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(3200.f, -27.f, 100.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		float shrinkX = SHRINK_LX;
+		float shrinkY = ((tempSpr.GetHeight() / 2.f) + SHRINK_Y);
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY),
+			vec2(0.f, (tempSpr.GetHeight() / SHRINK_VECLX) * 2.f),
+			CollisionIDs::Environment(), (0x0), 3, false);
+
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Platform 18");
+
+		platforms[18] = entity;
+	}
+
+	//Speed UP!
+	//Platform 19
+	{
+		auto entity = ECS::CreateEntity();
+
+		ECS::AttachComponent<Sprite>(entity);
+		ECS::AttachComponent<Transform>(entity);
+		ECS::AttachComponent<PhysicsBody>(entity);
+
+		std::string fileName = "RedPlatformL.png";
+		ECS::GetComponent<Sprite>(entity).LoadSprite(fileName, 384, 200);
+		ECS::GetComponent<Transform>(entity).SetPosition(vec3(3400.f, -27.f, 100.f));
+
+		auto& tempSpr = ECS::GetComponent<Sprite>(entity);
+		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
+
+		float shrinkX = SHRINK_LX;
+		float shrinkY = ((tempSpr.GetHeight() / 2.f) + SHRINK_Y);
+		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY),
+			vec2(0.f, (tempSpr.GetHeight() / SHRINK_VECLX) * 2.f),
+			CollisionIDs::Environment(), (0x0), 3, false);
+
+		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
+		ECS::SetUpIdentifier(entity, bitHolder, "Platform 19");
+
+		platforms[19] = entity;
+	}
 
 #pragma region Coloured Backgrounds
 	//Red Colour Back
@@ -613,6 +787,34 @@ int RainbowRunnerGame::GetPlatform12()
 int RainbowRunnerGame::GetPlatform13()
 {
 	return platforms[13];
+}
+int RainbowRunnerGame::GetPlatform14()
+{
+	return platforms[14];
+}
+int RainbowRunnerGame::GetPlatform15()
+{
+	return platforms[15];
+}
+int RainbowRunnerGame::GetPlatform16()
+{
+	return platforms[16];
+}
+int RainbowRunnerGame::GetPlatform17()
+{
+	return platforms[17];
+}
+int RainbowRunnerGame::GetPlatform18()
+{
+	return platforms[18];
+}
+int RainbowRunnerGame::GetPlatform19()
+{
+	return platforms[19];
+}
+int RainbowRunnerGame::GetStart()
+{
+	return m_start;
 }
 #pragma endregion
 

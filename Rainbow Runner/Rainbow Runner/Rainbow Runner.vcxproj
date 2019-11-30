@@ -139,6 +139,7 @@
     <ClCompile Include="ExitScene.cpp" />
     <ClCompile Include="Framebuffer.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="GrainEffect.cpp" />
     <ClCompile Include="GreyscaleEffect.cpp" />
     <ClCompile Include="HorizontalScroll.cpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="ExitScene.h" />
     <ClInclude Include="Framebuffer.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameOver.h" />
     <ClInclude Include="GrainEffect.h" />
     <ClInclude Include="GreyscaleEffect.h" />
     <ClInclude Include="HorizontalScroll.h" />

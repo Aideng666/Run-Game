@@ -34,6 +34,7 @@ void Game::InitGame()
 	std::string exitName = "Exit";
 	std::string spaceName = "Space";
 	std::string rulesSecName = "Rules";
+	std::string gameOverName = "Game Over";
 
 	//Initialize the current scene (starting screen)
 	m_name = menuName;
@@ -51,6 +52,7 @@ void Game::InitGame()
 	m_scenes.push_back(new ExitScene(exitName));
 	m_scenes.push_back(new RainbowRunnerGame(spaceName));
 	m_scenes.push_back(new RulesSection(rulesSecName));
+	m_scenes.push_back(new GameOver(gameOverName));
 
 	//Access the starting scene
 	m_scenes[0]->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
@@ -116,6 +118,8 @@ void Game::Update()
 		vec3 position2 = m_register->get<Transform>(entity2).GetPosition();
 		int bgWidth = m_register->get<Sprite>(entity).GetWidth();
 
+		auto s = scene->GetStart();
+
 		//Platforms Moving 
 		auto pS = scene->GetPlatformS();
 		auto p1 = scene->GetPlatform1();
@@ -131,9 +135,17 @@ void Game::Update()
 		auto p11 = scene->GetPlatform11();
 		auto p12 = scene->GetPlatform12();
 		auto p13 = scene->GetPlatform13();
+		auto p14 = scene->GetPlatform14();
+		auto p15 = scene->GetPlatform15();
+		auto p16 = scene->GetPlatform16();
+		auto p17 = scene->GetPlatform17();
+		auto p18 = scene->GetPlatform18();
+
+		auto p19 = scene->GetPlatform19();
 
 		float bgSpeed = 100.f;
 		float platSpeed = 70.f;
+		float platSpeed2 = 72.f;
 
 		//Loops the backgrounds
 		if (position.x + bgWidth <= 0)
@@ -149,6 +161,7 @@ void Game::Update()
 		{
 			m_register->get<Transform>(entity).SetPositionX(position.x - (bgSpeed * Timer::deltaTime));
 			m_register->get<Transform>(entity2).SetPositionX(position2.x - (bgSpeed * Timer::deltaTime));
+			m_register->get<Transform>(s).SetPositionX(m_register->get<Transform>(s).GetPosition().x - (bgSpeed * Timer::deltaTime));
 			/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			m_register->get<Transform>(pS).SetPositionX(m_register->get<Transform>(pS).GetPosition().x - (platSpeed * Timer::deltaTime));
 			m_register->get<Transform>(p1).SetPositionX(m_register->get<Transform>(p1).GetPosition().x - (platSpeed * Timer::deltaTime));
@@ -160,10 +173,17 @@ void Game::Update()
 			m_register->get<Transform>(p7).SetPositionX(m_register->get<Transform>(p7).GetPosition().x - (platSpeed * Timer::deltaTime));
 			m_register->get<Transform>(p8).SetPositionX(m_register->get<Transform>(p8).GetPosition().x - (platSpeed * Timer::deltaTime));
 			m_register->get<Transform>(p9).SetPositionX(m_register->get<Transform>(p9).GetPosition().x - (platSpeed * Timer::deltaTime));
-			//m_register->get<Transform>(p10).SetPositionX(m_register->get<Transform>(p10).GetPosition().x - (platSpeed * Timer::deltaTime));
-			//m_register->get<Transform>(p11).SetPositionX(m_register->get<Transform>(p11).GetPosition().x - (platSpeed * Timer::deltaTime));
-			//m_register->get<Transform>(p12).SetPositionX(m_register->get<Transform>(p12).GetPosition().x - (platSpeed * Timer::deltaTime));
-			//m_register->get<Transform>(p13).SetPositionX(m_register->get<Transform>(p13).GetPosition().x - (platSpeed * Timer::deltaTime));
+			m_register->get<Transform>(p10).SetPositionX(m_register->get<Transform>(p10).GetPosition().x - (platSpeed * Timer::deltaTime));
+			m_register->get<Transform>(p11).SetPositionX(m_register->get<Transform>(p11).GetPosition().x - (platSpeed * Timer::deltaTime));
+			m_register->get<Transform>(p12).SetPositionX(m_register->get<Transform>(p12).GetPosition().x - (platSpeed * Timer::deltaTime));
+			m_register->get<Transform>(p13).SetPositionX(m_register->get<Transform>(p13).GetPosition().x - (platSpeed * Timer::deltaTime));
+			m_register->get<Transform>(p14).SetPositionX(m_register->get<Transform>(p14).GetPosition().x - (platSpeed * Timer::deltaTime));
+			m_register->get<Transform>(p15).SetPositionX(m_register->get<Transform>(p15).GetPosition().x - (platSpeed * Timer::deltaTime));
+			m_register->get<Transform>(p16).SetPositionX(m_register->get<Transform>(p16).GetPosition().x - (platSpeed * Timer::deltaTime));
+			m_register->get<Transform>(p17).SetPositionX(m_register->get<Transform>(p17).GetPosition().x - (platSpeed * Timer::deltaTime));
+			m_register->get<Transform>(p18).SetPositionX(m_register->get<Transform>(p18).GetPosition().x - (platSpeed * Timer::deltaTime));
+
+			m_register->get<Transform>(p19).SetPositionX(m_register->get<Transform>(p19).GetPosition().x - (platSpeed2 * Timer::deltaTime));
 
 		}		
 	}
@@ -182,9 +202,9 @@ void Game::Update()
 		{
 			SceneEditor::ResetEditor();
 			m_activeScene->Unload();
-			m_scenes[0]->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
-			m_register = m_scenes[0]->GetScene();
-			m_activeScene = m_scenes[0];
+			m_scenes[5]->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+			m_register = m_scenes[5]->GetScene();
+			m_activeScene = m_scenes[5];
 			start = false;
 			begin = false;
 			sndPlaySound("Lose.wav", SND_FILENAME | SND_ASYNC);
@@ -310,7 +330,7 @@ void Game::KeyboardDown()
 		sndPlaySound("MenuSwitch.wav", SND_FILENAME | SND_ASYNC);
 	}
 	//Switches to the game scene
-	else if (m_activeScene == m_scenes[0] && Input::GetKeyDown(Key::Space))
+	else if (m_activeScene == m_scenes[0] && Input::GetKeyDown(Key::Enter))
 	{
 		SceneEditor::ResetEditor();
 
@@ -361,7 +381,7 @@ void Game::KeyboardDown()
 		sndPlaySound("MenuSwitch.wav", SND_FILENAME | SND_ASYNC);
 	}
 	//Switches to the rules section
-	else if (m_activeScene == m_scenes[1] && Input::GetKeyDown(Key::Space))
+	else if (m_activeScene == m_scenes[1] && Input::GetKeyDown(Key::Enter))
 	{
 		SceneEditor::ResetEditor();
 
@@ -395,7 +415,7 @@ void Game::KeyboardDown()
 		sndPlaySound("MenuSwitch.wav", SND_FILENAME | SND_ASYNC);
 	}
 	//Exits the program
-	else if (m_activeScene == m_scenes[2] && Input::GetKeyDown(Key::Space))
+	else if (m_activeScene == m_scenes[2] && Input::GetKeyDown(Key::Enter))
 	{
 		exit(1);
 	}
@@ -416,6 +436,38 @@ void Game::KeyboardDown()
 
 		sndPlaySound("MenuSelection.wav", SND_FILENAME | SND_ASYNC);
 	}
+	else if (m_activeScene == m_scenes[5] && Input::GetKeyDown(Key::Backspace))
+	{
+		SceneEditor::ResetEditor();
+
+		m_activeScene->Unload();
+
+		m_name = "Main Menu";
+		m_clearColor = vec4(0.15f, 0.33f, 0.58f, 1.f);
+		m_window->SetWindowName(m_name);
+
+		m_scenes[0]->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+		m_register = m_scenes[0]->GetScene();
+		m_activeScene = m_scenes[0];
+
+		sndPlaySound("MenuSelection.wav", SND_FILENAME | SND_ASYNC);
+	}
+	else if (m_activeScene == m_scenes[5] && Input::GetKeyDown(Key::Enter))
+	{
+		SceneEditor::ResetEditor();
+
+		m_activeScene->Unload();
+
+		m_name = "Rainbow Runner";
+		m_clearColor = vec4(0.15f, 0.33f, 0.58f, 1.f);
+		m_window->SetWindowName(m_name);
+
+		m_scenes[3]->InitScene(float(BackEnd::GetWindowWidth()), float(BackEnd::GetWindowHeight()));
+		m_register = m_scenes[3]->GetScene();
+		m_activeScene = m_scenes[3];
+
+		sndPlaySound("MenuSelection.wav", SND_FILENAME | SND_ASYNC);
+	}
 #pragma endregion
 
 #pragma region Jumping Code
@@ -430,7 +482,7 @@ if (m_activeScene == m_scenes[3])
 
 		//Sets upwards vel + accel to make the sprite "jump"
 		//Changes the corresponding animation
-		if (Input::GetKeyDown(Key::UpArrow) && !jump)
+		if (Input::GetKeyDown(Key::Space) && !jump)
 		{	
 			body.SetAcceleration(vec3(0.f, 85.f, 0.f));
 			body.SetVelocity(vec3(0.f, 85.f, 0.f));
