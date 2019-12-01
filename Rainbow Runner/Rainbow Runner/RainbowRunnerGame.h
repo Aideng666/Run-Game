@@ -32,8 +32,22 @@ public:
 	int GetPlatform16();
 	int GetPlatform17();
 	int GetPlatform18();
-
 	int GetPlatform19();
+	int GetPlatform20();
+	int GetPlatform21();
+	int GetPlatform22();
+	int GetPlatform23();
+	int GetPlatform24();
+	int GetPlatform25();
+	int GetPlatform26();
+	int GetPlatform27();
+	int GetPlatform28();
+	int GetPlatform29();
+	int GetPlatform30();
+	int GetPlatform31();
+	int GetPlatform32();
+	int GetPlatform33();
+	int GetPlatform34();
 
 	int GetStart();
 
@@ -58,5 +72,5 @@ private:
 
 	int m_start;
 
-	int platforms[30];
+	int platforms[40];
 };

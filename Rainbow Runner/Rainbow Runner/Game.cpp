@@ -121,6 +121,7 @@ void Game::Update()
 		auto s = scene->GetStart();
 
 		//Platforms Moving 
+#pragma region Platform Variables
 		auto pS = scene->GetPlatformS();
 		auto p1 = scene->GetPlatform1();
 		auto p2 = scene->GetPlatform2();
@@ -140,12 +141,28 @@ void Game::Update()
 		auto p16 = scene->GetPlatform16();
 		auto p17 = scene->GetPlatform17();
 		auto p18 = scene->GetPlatform18();
-
 		auto p19 = scene->GetPlatform19();
+		auto p20 = scene->GetPlatform20();
+		auto p21 = scene->GetPlatform21();
+		auto p22 = scene->GetPlatform22();
+		auto p23 = scene->GetPlatform23();
+		auto p24 = scene->GetPlatform24();
+		auto p25 = scene->GetPlatform25();
+		auto p26 = scene->GetPlatform26();
+		auto p27 = scene->GetPlatform27();
+		auto p28 = scene->GetPlatform28();
+		auto p29 = scene->GetPlatform29();
+		auto p30 = scene->GetPlatform30();
+		auto p31 = scene->GetPlatform31();
+		auto p32 = scene->GetPlatform32();
+		auto p33 = scene->GetPlatform33();
+		auto p34 = scene->GetPlatform34();
 
+#pragma endregion
+
+		
 		float bgSpeed = 100.f;
-		float platSpeed = 70.f;
-		float platSpeed2 = 72.f;
+		float platSpeed = 98.f;
 
 		//Loops the backgrounds
 		if (position.x + bgWidth <= 0)
@@ -157,6 +174,7 @@ void Game::Update()
 			position2.x = position.x + bgWidth;
 		}
 
+#pragma region MOVEMENT
 		if (start)
 		{
 			m_register->get<Transform>(entity).SetPositionX(position.x - (bgSpeed * Timer::deltaTime));
@@ -182,10 +200,27 @@ void Game::Update()
 			m_register->get<Transform>(p16).SetPositionX(m_register->get<Transform>(p16).GetPosition().x - (platSpeed * Timer::deltaTime));
 			m_register->get<Transform>(p17).SetPositionX(m_register->get<Transform>(p17).GetPosition().x - (platSpeed * Timer::deltaTime));
 			m_register->get<Transform>(p18).SetPositionX(m_register->get<Transform>(p18).GetPosition().x - (platSpeed * Timer::deltaTime));
+			m_register->get<Transform>(p19).SetPositionX(m_register->get<Transform>(p19).GetPosition().x - (platSpeed * Timer::deltaTime));
+			m_register->get<Transform>(p20).SetPositionX(m_register->get<Transform>(p20).GetPosition().x - (platSpeed * Timer::deltaTime));
+			m_register->get<Transform>(p21).SetPositionX(m_register->get<Transform>(p21).GetPosition().x - (platSpeed * Timer::deltaTime));
+			m_register->get<Transform>(p22).SetPositionX(m_register->get<Transform>(p22).GetPosition().x - (platSpeed * Timer::deltaTime));
+			m_register->get<Transform>(p23).SetPositionX(m_register->get<Transform>(p23).GetPosition().x - (platSpeed * Timer::deltaTime));
+			m_register->get<Transform>(p24).SetPositionX(m_register->get<Transform>(p24).GetPosition().x - (platSpeed * Timer::deltaTime));
+			m_register->get<Transform>(p25).SetPositionX(m_register->get<Transform>(p25).GetPosition().x - (platSpeed * Timer::deltaTime));
+			m_register->get<Transform>(p26).SetPositionX(m_register->get<Transform>(p26).GetPosition().x - (platSpeed * Timer::deltaTime));
+			m_register->get<Transform>(p27).SetPositionX(m_register->get<Transform>(p27).GetPosition().x - (platSpeed * Timer::deltaTime));
+			m_register->get<Transform>(p28).SetPositionX(m_register->get<Transform>(p28).GetPosition().x - (platSpeed * Timer::deltaTime));
+			m_register->get<Transform>(p29).SetPositionX(m_register->get<Transform>(p29).GetPosition().x - (platSpeed * Timer::deltaTime));
+			m_register->get<Transform>(p30).SetPositionX(m_register->get<Transform>(p30).GetPosition().x - (platSpeed * Timer::deltaTime));
+			m_register->get<Transform>(p31).SetPositionX(m_register->get<Transform>(p31).GetPosition().x - (platSpeed * Timer::deltaTime));
+			m_register->get<Transform>(p32).SetPositionX(m_register->get<Transform>(p32).GetPosition().x - (platSpeed * Timer::deltaTime));
+			m_register->get<Transform>(p33).SetPositionX(m_register->get<Transform>(p33).GetPosition().x - (platSpeed * Timer::deltaTime));
+			m_register->get<Transform>(p34).SetPositionX(m_register->get<Transform>(p34).GetPosition().x - (platSpeed * Timer::deltaTime));
 
-			m_register->get<Transform>(p19).SetPositionX(m_register->get<Transform>(p19).GetPosition().x - (platSpeed2 * Timer::deltaTime));
+		}
+#pragma endregion
 
-		}		
+	
 	}
 #pragma endregion
 	
@@ -273,7 +308,7 @@ void Game::KeyboardHold()
 		auto blueEnt = scene->GetBlueBack();
 		auto greenEnt = scene->GetGreenBack();
 
-		float speed = 100.f;
+		float speed = 60.f;
 
 		if (Input::GetKey(Key::RightArrow))
 		{
@@ -436,6 +471,7 @@ void Game::KeyboardDown()
 
 		sndPlaySound("MenuSelection.wav", SND_FILENAME | SND_ASYNC);
 	}
+	//Goes back to the main menu when player dies
 	else if (m_activeScene == m_scenes[5] && Input::GetKeyDown(Key::Backspace))
 	{
 		SceneEditor::ResetEditor();
@@ -452,6 +488,7 @@ void Game::KeyboardDown()
 
 		sndPlaySound("MenuSelection.wav", SND_FILENAME | SND_ASYNC);
 	}
+	//Restarts the level if the player died
 	else if (m_activeScene == m_scenes[5] && Input::GetKeyDown(Key::Enter))
 	{
 		SceneEditor::ResetEditor();
@@ -466,7 +503,7 @@ void Game::KeyboardDown()
 		m_register = m_scenes[3]->GetScene();
 		m_activeScene = m_scenes[3];
 
-		sndPlaySound("MenuSelection.wav", SND_FILENAME | SND_ASYNC);
+		sndPlaySound("Run2.wav", SND_FILENAME | SND_ASYNC | SND_LOOP);
 	}
 #pragma endregion
 
