@@ -4,7 +4,6 @@
 #include "JSON.h"
 #include "ECS.h"
 #include "PhysicsBody.h"
-//#include "Xinput.h"
 
 class Scene
 {
@@ -18,14 +17,6 @@ public:
 	//Each scene will need to have a different
 	//init, as each scene's contents will be different
 	virtual void InitScene(float windowWidth, float windowHeight) { printf("windowwidth: %f, windowHeight: %f", windowWidth, windowHeight); };
-
-	/*virtual void Update() {}
-
-	virtual void GamepadStroke(XInputController* con) { };
-	virtual void GamepadUp(XInputController* con) { };
-	virtual void GamepadDown(XInputController* con) { };
-	virtual void GamepadStick(XInputController* con) { };
-	virtual void GamepadTrigger(XInputController* con) { };*/
 
 	//Saves the scene
 	void SaveScene();

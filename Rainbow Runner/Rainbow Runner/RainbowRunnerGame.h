@@ -13,6 +13,7 @@ public:
 	int GetBackground2();
 	int GetPlayer();
 
+#pragma region Platform Getters
 	int GetPlatformS();
 	int GetPlatform1();
 	int GetPlatform2();
@@ -83,7 +84,8 @@ public:
 	int GetPlatform67();
 	int GetPlatform68();
 	int GetPlatform69();
-
+#pragma endregion
+	
 	int GetStart();
 
 	int GetCam();

@@ -64,12 +64,12 @@ public:
 
 	//Sets this specific controller's index
 	void SetControllerIndex(int index);
-	
+
 	//Updates the controller's state
 	void Update();
 
 	void PrintControllerInfo();
-	
+
 	//Button functions
 	int GetButtonBitmask();
 	bool IsButtonPressed(int bitmask);
@@ -80,7 +80,7 @@ public:
 	//Setters
 	void SetStickDeadZone(float deadZone);
 	void SetTriggerDeadZone(float deadZone);
-	
+
 	//Getters
 	void GetSticks(Stick sticks[2]);
 	void GetTriggers(Triggers &triggers);
@@ -97,7 +97,7 @@ private:
 	std::unordered_map<int, bool> m_stroke;
 };
 
-class XInputManager abstract
+class XInputManager
 {
 public:
 	XInputManager();

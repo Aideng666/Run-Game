@@ -16,8 +16,6 @@ void BackEnd::InitBackEnd(std::string name)
 	InitSDL();
 
 	//Sets the backend window width, height, and aspect ratio
-	//m_windowWidth = 700.f;//comment out when fullscreen
-	//m_windowHeight = 700.f;//comment out when fullscreen
 	GetDesktopResolution(m_windowWidth, m_windowHeight);
 	m_aspectRatio = float(m_windowWidth) / float(m_windowHeight);
 	//Creates new window with name of the scene as a caption
