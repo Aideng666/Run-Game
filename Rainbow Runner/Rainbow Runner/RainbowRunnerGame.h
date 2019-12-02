@@ -92,8 +92,8 @@ public:
 	int GetBlueBack();
 	int GetGreenBack();
 
-	const float SHRINK_LX = 248.f;
-	const float SHRINK_SX = 315.f;
+	const float SHRINK_LX = 238.f;
+	const float SHRINK_SX = 305.f;
 	const float SHRINK_Y = 98.f;
 	const float SHRINK_VECLX = 64.f;
 	const float SHRINK_VECSX = 64.f;

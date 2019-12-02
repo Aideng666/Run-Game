@@ -76,7 +76,9 @@ void PhysicsSystem::Run(entt::registry * reg)
 									if (body2.GetColour() == 4)
 									{
 										body1.SetColour(4);
-									}
+									}		
+
+									body1.SetCollided(true);									
 								}									
 							}	
 						}

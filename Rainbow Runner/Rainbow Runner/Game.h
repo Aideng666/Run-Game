@@ -65,11 +65,11 @@ public:
 	void MouseClick(SDL_MouseButtonEvent evnt);
 	void MouseWheel(SDL_MouseWheelEvent evnt);
 
-	void GamepadInput();
-	//Xbox Controller Input
-	void GamepadDown(XInputController* con);
-	void GamepadStick(XInputController* con);
-	void GamepadTrigger(XInputController* con);
+	//void GamepadInput();
+	////Xbox Controller Input
+	//void GamepadDown(XInputController* con);
+	//void GamepadStick(XInputController* con);
+	//void GamepadTrigger(XInputController* con);
 
 private:
 	//The window

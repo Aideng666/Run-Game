@@ -72,6 +72,12 @@ public:
 	int GetColour();
 	void SetColour(int colour);
 
+	bool GetJump();
+	void SetJump(bool hasJumped);
+
+	bool GetCollided();
+	void SetCollided(bool collided);
+
 	void SetForce(vec3 force);
 	void SetAcceleration(vec3 accel);
 	void SetMaxVelo(float velo);
@@ -132,6 +138,7 @@ private:
 	bool m_dynamic = false;
 
 	int m_colour;
+	bool hasCollided;
 };
 
 //Sends body TO json file

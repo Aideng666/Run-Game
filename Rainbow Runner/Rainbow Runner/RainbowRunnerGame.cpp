@@ -67,10 +67,10 @@ void RainbowRunnerGame::InitScene(float windowWidth, float windowHeight)
 		auto& tempPhsBody = ECS::GetComponent<PhysicsBody>(entity);
 
 		float shrinkX = tempSpr.GetWidth() / 2.f - 1;
-		float shrinkY = tempSpr.GetWidth() / 1.f + 10;
+		float shrinkY = tempSpr.GetWidth() / 1.f + 14;
 
 		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY),
-			vec2(0.f, -10.f),
+			vec2(0.f, -13.f),
 			CollisionIDs::Player(), (CollisionIDs::Enemy() | CollisionIDs::Environment()), true);
 
 		tempPhsBody.SetFriction(0.15f);
@@ -416,7 +416,7 @@ void RainbowRunnerGame::InitScene(float windowWidth, float windowHeight)
 
 		platforms[11] = entity;
 	}
-	////Platform 12
+	//Platform 12
 	{
 		auto entity = ECS::CreateEntity();
 

@@ -283,6 +283,16 @@ void PhysicsBody::SetColour(int colour)
 	m_colour = colour;
 }
 
+bool PhysicsBody::GetCollided()
+{
+	return hasCollided;
+}
+
+void PhysicsBody::SetCollided(bool collided)
+{
+	hasCollided = collided;
+}
+
 void PhysicsBody::SetForce(vec3 force)
 {
 	m_appliedForce = force;

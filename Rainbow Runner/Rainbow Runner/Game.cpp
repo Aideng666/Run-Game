@@ -626,22 +626,24 @@ if (m_activeScene == m_scenes[3])
 
 		vec3 position = m_register->get<Transform>(EntityIdentifier::MainPlayer()).GetPosition();
 
-		//Sets upwards vel + accel to make the sprite "jump"
-		//Changes the corresponding animation
-		if (Input::GetKeyDown(Key::Space) && !jump)
-		{	
-			body.SetAcceleration(vec3(0.f, 85.f, 0.f));
-			body.SetVelocity(vec3(0.f, 85.f, 0.f));
-			jump = true;
-			animController.SetActiveAnim(1);
-			animController.GetAnimation(1).Reset();
+		//As long as the sprite collides they can jump
+		if (body.GetCollided() == true)
+		{
+			if (Input::GetKeyDown(Key::Space))
+			{
+				body.SetAcceleration(vec3(0.f, 85.f, 0.f));
+				body.SetVelocity(vec3(0.f, 85.f, 0.f));
+				animController.SetActiveAnim(1);
+				animController.GetAnimation(1).Reset();
+			}
+
+			//Set collide to fales as they're in the air
+			body.SetCollided(false);
 		}
 
-		//Checks to see if the player can jump again and changes animation
-		//Eliminates double jumping
-		if (body.GetAcceleration().y == 0.f && body.GetVelocity().y == 0.f)
+		//Change to the corresponding animation
+		if (body.GetVelocity().y == 0 && body.GetAcceleration().y == 0)
 		{
-			jump = false;
 			animController.SetActiveAnim(0);
 		}
 	}
@@ -747,6 +749,7 @@ void Game::MouseWheel(SDL_MouseWheelEvent evnt)
 	m_wheel = false;
 }
 
+#pragma region Gamepad Stuff
 //void Game::GamepadInput()
 //{
 //	XInputController* tempCon;
@@ -1017,3 +1020,5 @@ void Game::MouseWheel(SDL_MouseWheelEvent evnt)
 //		}
 //	}
 //}
+
+#pragma endregion
