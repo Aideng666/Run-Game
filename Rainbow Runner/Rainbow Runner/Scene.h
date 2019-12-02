@@ -4,6 +4,7 @@
 #include "JSON.h"
 #include "ECS.h"
 #include "PhysicsBody.h"
+//#include "Xinput.h"
 
 class Scene
 {
@@ -18,6 +19,14 @@ public:
 	//init, as each scene's contents will be different
 	virtual void InitScene(float windowWidth, float windowHeight) { printf("windowwidth: %f, windowHeight: %f", windowWidth, windowHeight); };
 
+	/*virtual void Update() {}
+
+	virtual void GamepadStroke(XInputController* con) { };
+	virtual void GamepadUp(XInputController* con) { };
+	virtual void GamepadDown(XInputController* con) { };
+	virtual void GamepadStick(XInputController* con) { };
+	virtual void GamepadTrigger(XInputController* con) { };*/
+
 	//Saves the scene
 	void SaveScene();
 
@@ -30,6 +39,7 @@ public:
 	
 	//Set window size (makes sure the camera aspect is proper)
 	void SetWindowSize(float windowWidth, float windowHeight);
+
 protected:
 	entt::registry* m_sceneReg = nullptr;	
 	std::string m_name = "Default Name";

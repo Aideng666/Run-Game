@@ -8,6 +8,8 @@
 #include "ExitScene.h"
 #include "RulesSection.h"
 #include "GameOver.h"
+#include "Win.h"
+#include "Xinput.h"
 
 //Our main class for running our game
 class Game
@@ -62,6 +64,12 @@ public:
 	void MouseMotion(SDL_MouseMotionEvent evnt);
 	void MouseClick(SDL_MouseButtonEvent evnt);
 	void MouseWheel(SDL_MouseWheelEvent evnt);
+
+	void GamepadInput();
+	//Xbox Controller Input
+	void GamepadDown(XInputController* con);
+	void GamepadStick(XInputController* con);
+	void GamepadTrigger(XInputController* con);
 
 private:
 	//The window

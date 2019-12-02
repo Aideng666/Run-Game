@@ -66,8 +66,8 @@ public:
 
 	//Model Matrix
 	mat4 m_localToWorldMatrix;
-private:
 
+private:
 };
 
 #ifndef __TRANSFORMJSON_H__

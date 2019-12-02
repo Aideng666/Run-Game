@@ -72,6 +72,7 @@ void PhysicsSystem::Run(entt::registry * reg)
 
 									body1.SetAcceleration(vec3(0.f, 0.f, 0.f));
 									body1.SetVelocity(vec3(0.f, 0.f, 0.f));
+								
 									if (body2.GetColour() == 4)
 									{
 										body1.SetColour(4);

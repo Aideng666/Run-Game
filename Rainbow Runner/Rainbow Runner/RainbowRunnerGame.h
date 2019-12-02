@@ -48,15 +48,52 @@ public:
 	int GetPlatform32();
 	int GetPlatform33();
 	int GetPlatform34();
+	int GetPlatform35();
+	int GetPlatform36();
+	int GetPlatform37();
+	int GetPlatform38();
+	int GetPlatform39();
+	int GetPlatform40();
+	int GetPlatform41();
+	int GetPlatform42();
+	int GetPlatform43();
+	int GetPlatform44();
+	int GetPlatform45();
+	int GetPlatform46();
+	int GetPlatform47();
+	int GetPlatform48();
+	int GetPlatform49();
+	int GetPlatform50();
+	int GetPlatform51();
+	int GetPlatform52();
+	int GetPlatform53();
+	int GetPlatform54();
+	int GetPlatform55();
+	int GetPlatform56();
+	int GetPlatform57();
+	int GetPlatform58();
+	int GetPlatform59();
+	int GetPlatform60();
+	int GetPlatform61();
+	int GetPlatform62();
+	int GetPlatform63();
+	int GetPlatform64();
+	int GetPlatform65();
+	int GetPlatform66();
+	int GetPlatform67();
+	int GetPlatform68();
+	int GetPlatform69();
 
 	int GetStart();
+
+	int GetCam();
 
 	int GetRedBack();
 	int GetBlueBack();
 	int GetGreenBack();
 
-	const float SHRINK_LX = 238.f;
-	const float SHRINK_SX = 305.f;
+	const float SHRINK_LX = 248.f;
+	const float SHRINK_SX = 315.f;
 	const float SHRINK_Y = 98.f;
 	const float SHRINK_VECLX = 64.f;
 	const float SHRINK_VECSX = 64.f;
@@ -72,5 +109,7 @@ private:
 
 	int m_start;
 
-	int platforms[40];
+	int m_cam;
+
+	int platforms[69];
 };
