@@ -331,7 +331,7 @@ void RainbowRunnerGame::InitScene(float windowWidth, float windowHeight)
 		float shrinkY = ((tempSpr.GetHeight() / 2.f) + SHRINK_Y);
 		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY),
 			vec2(0.f, (tempSpr.GetHeight() / SHRINK_VECSX) * 2.f),
-			CollisionIDs::Environment(), (0x0), 0, false);
+			CollisionIDs::Environment(), (0x0), 2, false);
 
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "Platform 8");
@@ -383,7 +383,7 @@ void RainbowRunnerGame::InitScene(float windowWidth, float windowHeight)
 		float shrinkY = ((tempSpr.GetHeight() / 2.f) + SHRINK_Y);
 		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY),
 			vec2(0.f, (tempSpr.GetHeight() / SHRINK_VECSX) * 2.f),
-			CollisionIDs::Environment(), (0x0), 0, false);
+			CollisionIDs::Environment(), (0x0), 2, false);
 
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "Platform 10");
@@ -1215,7 +1215,7 @@ void RainbowRunnerGame::InitScene(float windowWidth, float windowHeight)
 		float shrinkY = ((tempSpr.GetHeight() / 2.f) + SHRINK_Y);
 		tempPhsBody = PhysicsBody(float(tempSpr.GetWidth() - shrinkX), float(tempSpr.GetHeight() - shrinkY),
 			vec2(0.f, (tempSpr.GetHeight() / SHRINK_VECSX) * 2.f),
-			CollisionIDs::Environment(), (0x0), 0, false);
+			CollisionIDs::Environment(), (0x0), 3, false);
 
 		unsigned int bitHolder = EntityIdentifier::SpriteBit() | EntityIdentifier::TransformBit() | EntityIdentifier::PhysicsBit();
 		ECS::SetUpIdentifier(entity, bitHolder, "Platform 42");
